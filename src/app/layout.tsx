@@ -31,12 +31,33 @@ export const metadata: Metadata = {
     'System Integration Tanzania',
   ],
   authors: [{ name: 'TariqTech Limited' }],
+  icons: {
+    icon: [
+      { url: '/favicon.ico' },
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon-48x48.png', sizes: '48x48', type: 'image/png' },
+    ],
+    shortcut: '/favicon.ico',
+    apple: [
+      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+    ],
+  },
+  manifest: '/site.webmanifest',
   openGraph: {
     title: 'TariqTech Limited | Digital Solutions That Create Real Impact',
     description:
       'We help businesses transform ideas into reliable digital products through software development, AI solutions, and system integrations.',
     url: 'https://tariqtechlimited.com',
     siteName: 'TariqTech Limited',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'TariqTech Limited - Digital Solutions That Create Real Impact',
+      },
+    ],
     locale: 'en_US',
     type: 'website',
   },
@@ -45,6 +66,7 @@ export const metadata: Metadata = {
     title: 'TariqTech Limited | Digital Solutions That Create Real Impact',
     description:
       'Bespoke software development, AI business automation, and high-performance digital products.',
+    images: ['/og-image.png'],
   },
   robots: {
     index: true,

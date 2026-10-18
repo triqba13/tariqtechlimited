@@ -1,0 +1,31 @@
+{
+  "name": "TariqTech Limited",
+  "short_name": "TariqTech",
+  "description": "We Build Digital Solutions That Create Real Impact.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F6FDF4",
+  "theme_color": "#0EA5E9",
+  "icons": [
+    {
+      "src": "/favicon-16x16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
