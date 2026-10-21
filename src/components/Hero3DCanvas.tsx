@@ -32,13 +32,13 @@ export default function Hero3DCanvas() {
     const techGroup = new THREE.Group();
     scene.add(techGroup);
 
-    // 1. Central Icosahedron Wireframe with Blue/Cyan accent
+    // 1. Central Icosahedron Wireframe with Teal/Cyan accent
     const coreGeometry = new THREE.IcosahedronGeometry(4.2, 1);
     const wireframeMaterial = new THREE.MeshBasicMaterial({
-      color: 0x0EA5E9,
+      color: 0x2a8a85,
       wireframe: true,
       transparent: true,
-      opacity: 0.28,
+      opacity: 0.32,
     });
     const coreMesh = new THREE.Mesh(coreGeometry, wireframeMaterial);
     techGroup.add(coreMesh);
@@ -46,9 +46,9 @@ export default function Hero3DCanvas() {
     // 2. Inner Golden Amber Ring
     const torusGeometry = new THREE.TorusGeometry(5.2, 0.08, 16, 100);
     const torusMaterial = new THREE.MeshBasicMaterial({
-      color: 0xF59E0B,
+      color: 0xe8b54b,
       transparent: true,
-      opacity: 0.55,
+      opacity: 0.6,
     });
     const torusMesh = new THREE.Mesh(torusGeometry, torusMaterial);
     torusMesh.rotation.x = Math.PI / 3;
@@ -65,10 +65,10 @@ export default function Hero3DCanvas() {
     const particleGeometry = new THREE.BufferGeometry();
     particleGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
     const particleMaterial = new THREE.PointsMaterial({
-      color: 0x10B981,
-      size: 0.16,
+      color: 0x5fd4ce,
+      size: 0.18,
       transparent: true,
-      opacity: 0.6,
+      opacity: 0.75,
     });
     const particlePoints = new THREE.Points(particleGeometry, particleMaterial);
     techGroup.add(particlePoints);

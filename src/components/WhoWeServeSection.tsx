@@ -2,179 +2,94 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { useLanguage } from '@/context/LanguageContext';
-import { 
-  Rocket, 
-  Store, 
-  Building2, 
-  Globe, 
-  Clock, 
-  MonitorX, 
-  Unlink, 
-  Sparkles, 
-  ArrowRight 
-} from 'lucide-react';
+import Image from 'next/image';
 
 export default function WhoWeServeSection() {
-  const { t } = useLanguage();
-
   const personas = [
     {
-      icon: Rocket,
-      titleKey: 'persona1_title',
-      descKey: 'persona1_desc',
-      color: 'sky',
+      id: 'startups',
+      title: 'Startups & Entrepreneurs',
+      desc: 'Turning bold ideas into viable digital products and launch-ready applications with scalable architecture.',
+      image: '/pictures/Startups & Entrepreneurs.jpg',
     },
     {
-      icon: Store,
-      titleKey: 'persona2_title',
-      descKey: 'persona2_desc',
-      color: 'emerald',
+      id: 'smb',
+      title: 'Small & Medium Businesses',
+      desc: 'Improving operations, automating repetitive work, and reaching more customers with high-conversion web channels.',
+      image: '/pictures/Small & Medium Businesse.jpg',
     },
     {
-      icon: Building2,
-      titleKey: 'persona3_title',
-      descKey: 'persona3_desc',
-      color: 'amber',
+      id: 'established',
+      title: 'Established Companies',
+      desc: 'Building reliable custom management systems and connecting disparate business tools for operational efficiency.',
+      image: '/pictures/Established Companies.jpg',
     },
     {
-      icon: Globe,
-      titleKey: 'persona4_title',
-      descKey: 'persona4_desc',
-      color: 'purple',
-    },
-  ];
-
-  const problems = [
-    {
-      icon: Clock,
-      titleKey: 'prob1_title',
-      descKey: 'prob1_desc',
-    },
-    {
-      icon: MonitorX,
-      titleKey: 'prob2_title',
-      descKey: 'prob2_desc',
-    },
-    {
-      icon: Unlink,
-      titleKey: 'prob3_title',
-      descKey: 'prob3_desc',
-    },
-    {
-      icon: Sparkles,
-      titleKey: 'prob4_title',
-      descKey: 'prob4_desc',
+      id: 'international',
+      title: 'International Clients',
+      desc: 'Delivering digital solutions across markets with dependable remote engineering and seamless communication.',
+      image: '/pictures/International Clients.jpg',
     },
   ];
 
   return (
-    <section className="py-20 md:py-28 bg-white border-y border-slate-200/80" id="who-we-serve">
-      <div className="max-w-7xl mx-auto px-4 md:px-8">
+    <section className="py-20 md:py-28 relative" id="who-we-serve">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sky-100 text-sky-800 text-xs font-semibold uppercase tracking-wider mb-4">
-            <span className="w-2 h-2 rounded-full bg-sky-500 animate-pulse" />
-            <span>{t('serve_badge')}</span>
-          </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-4">
-            {t('serve_title')}{' '}
-            <span className="text-sky-500">{t('serve_title_highlight')}</span>
+        {/* Section Header: Left-Aligned without Badge */}
+        <div className="text-left max-w-3xl mb-10 sm:mb-14">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#1a3a35] dark:text-[#f8fafc] tracking-tight leading-[1.14] mb-4">
+            Engineering Digital Growth for{' '}
+            <span className="text-[#2a8a85] dark:text-[#289b83]">Every Stage of Business</span>
           </h2>
-          <p className="text-base sm:text-lg text-slate-600">
-            {t('serve_subtitle')}
+          <p className="text-base sm:text-lg text-[#42645f] dark:text-[#94a3b8] leading-relaxed">
+            From ambitious startups launching their first digital products to established enterprises scaling operations, <span className="font-bold text-[#2a8a85] dark:text-[#5fd4ce]">we</span> engineer reliable software and intelligent automation designed for your exact growth stage.
           </p>
         </div>
 
-        {/* 4 Personas */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-          {personas.map((persona, idx) => {
-            const Icon = persona.icon;
+        {/* 4 Interactive Persona Cards in the Same Line: Wider aspect ratio, reduced height for optimal photo framing */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-5">
+          {personas.map((persona) => {
             return (
-              <div
-                key={idx}
-                className="bg-[#F6FDF4] border border-slate-200/80 rounded-3xl p-7 hover:bg-white hover:border-sky-300 hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
+              <Link
+                key={persona.id}
+                href="/contact"
+                className="group relative h-[330px] sm:h-[350px] lg:h-[360px] rounded-3xl overflow-hidden border border-[#1a3a35]/15 dark:border-white/10 shadow-sm transition-all duration-300 hover:shadow-2xl hover:-translate-y-1.5 block cursor-pointer"
               >
-                <div
-                  className={`w-12 h-12 rounded-2xl flex items-center justify-center mb-5 ${
-                    persona.color === 'sky'
-                      ? 'bg-sky-100 text-sky-600'
-                      : persona.color === 'emerald'
-                      ? 'bg-emerald-100 text-emerald-600'
-                      : persona.color === 'amber'
-                      ? 'bg-amber-100 text-amber-600'
-                      : 'bg-purple-100 text-purple-600'
-                  }`}
-                >
-                  <Icon className="w-6 h-6" />
+                {/* Background Image: Full View, Sharp & Vibrant with Smooth Hover Zoom */}
+                <Image
+                  src={persona.image}
+                  alt={persona.title}
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                  className="object-cover object-center transition-all duration-700 ease-out group-hover:scale-105 group-hover:brightness-105"
+                />
+
+                {/* Gentle Ambient Vignette to keep image clearly visible */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent group-hover:from-black/70 transition-colors duration-300" />
+
+                {/* Translucent Frosted Glass Card: Preserves image visibility beneath while expanding on hover */}
+                <div className="absolute inset-x-3 bottom-3 rounded-2xl bg-black/50 dark:bg-black/65 backdrop-blur-md border border-white/20 p-3.5 sm:p-4 transition-all duration-300 ease-out shadow-xl flex flex-col justify-end">
+                  
+                  {/* Title */}
+                  <h3 className="text-sm sm:text-base font-bold text-white tracking-tight leading-snug drop-shadow-sm">
+                    {persona.title}
+                  </h3>
+
+                  {/* Expandable Description (Smooth Grid Transition without Explore more) */}
+                  <div className="grid grid-rows-[0fr] group-hover:grid-rows-[1fr] transition-all duration-300 ease-out">
+                    <div className="overflow-hidden">
+                      <p className="text-xs sm:text-[13px] text-slate-100/95 leading-relaxed pt-2 drop-shadow-sm">
+                        {persona.desc}
+                      </p>
+                    </div>
+                  </div>
+
                 </div>
-                <h3 className="text-lg font-bold text-slate-900 mb-2">
-                  {t(persona.titleKey)}
-                </h3>
-                <p className="text-xs text-slate-600 leading-relaxed">
-                  {t(persona.descKey)}
-                </p>
-              </div>
+
+              </Link>
             );
           })}
-        </div>
-
-        {/* Problems We Solve Glassmorphism Container */}
-        <div className="relative rounded-3xl bg-slate-950 text-white p-8 sm:p-12 md:p-16 overflow-hidden shadow-2xl">
-          {/* Ambient Glow */}
-          <div className="absolute top-0 right-0 w-96 h-96 bg-sky-500/20 rounded-full blur-3xl pointer-events-none" />
-
-          <div className="relative z-10 max-w-2xl mb-12">
-            <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white mb-3 tracking-tight">
-              {t('problems_title')}
-            </h3>
-            <p className="text-sm sm:text-base text-slate-400">
-              {t('problems_desc')}
-            </p>
-          </div>
-
-          <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-            {problems.map((prob, idx) => {
-              const Icon = prob.icon;
-              return (
-                <div
-                  key={idx}
-                  className="bg-white/5 border border-white/10 backdrop-blur-md rounded-2xl p-6 flex gap-4 items-start hover:bg-white/10 transition-colors"
-                >
-                  <div className="w-10 h-10 rounded-xl bg-amber-400/20 text-amber-400 flex items-center justify-center shrink-0">
-                    <Icon className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <h4 className="text-base font-bold text-white mb-1">
-                      {t(prob.titleKey)}
-                    </h4>
-                    <p className="text-xs text-slate-400 leading-relaxed">
-                      {t(prob.descKey)}
-                    </p>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-
-          <div className="relative z-10 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
-            <div>
-              <h4 className="text-lg font-bold text-white mb-1">
-                {t('problems_cta_title')}
-              </h4>
-              <p className="text-xs sm:text-sm text-slate-400">
-                {t('problems_cta_desc')}
-              </p>
-            </div>
-            <Link
-              href="#book"
-              className="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-600 text-white font-semibold px-6 py-3 rounded-full shadow-lg shadow-amber-500/20 transition-all hover:-translate-y-0.5 text-sm"
-            >
-              <span>{t('problems_cta_btn')}</span>
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
         </div>
 
       </div>

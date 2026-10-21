@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "icons8mcp": {
+      "command": "mcp-remote",
+      "args": [
+        "https://mcp.icons8.com/mcp/"
+      ]
+    }
+  }
+}

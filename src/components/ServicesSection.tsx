@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { useLanguage } from '@/context/LanguageContext';
 import { 
@@ -8,186 +8,162 @@ import {
   Code2, 
   Smartphone, 
   Bot, 
-  Cloud, 
-  Share2, 
-  Database, 
-  Palette, 
-  ArrowRight 
+  Layers, 
+  Sparkles,
+  ChevronRight 
 } from 'lucide-react';
 
 export default function ServicesSection() {
   const { t } = useLanguage();
+  const [activeBranch, setActiveBranch] = useState<number | null>(null);
 
+  // 4 concise, high-impact services matching the clean screenshot aesthetic
   const services = [
     {
       id: 'website',
-      num: '01',
-      titleKey: 'srv1_title',
-      descKey: 'srv1_desc',
-      exampleKey: 'srv1_example',
+      title: 'Website Development',
+      desc: 'High-performance corporate platforms, business portals, and web applications built for speed, conversion, and global visibility.',
       icon: Globe,
-      color: 'sky',
     },
     {
       id: 'custom_software',
-      num: '02',
-      titleKey: 'srv2_title',
-      descKey: 'srv2_desc',
-      exampleKey: 'srv2_example',
+      title: 'Custom Software Systems',
+      desc: 'Tailored management platforms, booking engines, workflows, and database architectures engineered around your exact operations.',
       icon: Code2,
-      color: 'amber',
     },
     {
       id: 'mobile_app',
-      num: '03',
-      titleKey: 'srv3_title',
-      descKey: 'srv3_desc',
-      exampleKey: 'srv3_example',
+      title: 'Mobile App Development',
+      desc: 'Native and cross-platform Android & iOS applications delivering smooth user experiences, offline sync, and secure mobile portals.',
       icon: Smartphone,
-      color: 'emerald',
     },
     {
       id: 'ai_automation',
-      num: '04',
-      titleKey: 'srv4_title',
-      descKey: 'srv4_desc',
-      exampleKey: 'srv4_example',
+      title: 'AI & Business Automation',
+      desc: 'Autonomous AI agents, automated customer routing, and intelligent workflows that eliminate manual tasks and scale efficiency 24/7.',
       icon: Bot,
-      color: 'amber',
-    },
-    {
-      id: 'saas',
-      num: '05',
-      titleKey: 'srv5_title',
-      descKey: 'srv5_desc',
-      exampleKey: 'srv5_example',
-      icon: Cloud,
-      color: 'sky',
-    },
-    {
-      id: 'api_integration',
-      num: '06',
-      titleKey: 'srv6_title',
-      descKey: 'srv6_desc',
-      exampleKey: 'srv6_example',
-      icon: Share2,
-      color: 'emerald',
     },
   ];
 
   return (
-    <section className="py-20 md:py-28 relative" id="services">
+    <section className="py-20 md:py-28 relative overflow-hidden" id="services">
       <div className="max-w-7xl mx-auto px-4 md:px-8">
         
-        {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-100 text-emerald-800 text-xs font-semibold uppercase tracking-wider mb-4">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-            <span>{t('services_badge')}</span>
-          </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-4">
-            {t('services_title')}{' '}
-            <span className="text-sky-500">{t('services_title_highlight')}</span>
-          </h2>
-          <p className="text-base sm:text-lg text-slate-600">
-            {t('services_subtitle')}
-          </p>
-        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-start">
+          
+          {/* ============================================================== */}
+          {/* LEFT COLUMN: Clean Headings & Description (No Request Button)  */}
+          {/* ============================================================== */}
+          <div className="lg:col-span-5 flex flex-col items-start lg:sticky lg:top-28 z-20">
+            
+            {/* Main Headline */}
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#1a3a35] dark:text-[#f8fafc] tracking-tight leading-[1.14] mb-6">
+              Complete Digital Solutions for{' '}
+              <span className="text-[#2a8a85] dark:text-[#289b83]">Modern Businesses</span>
+            </h2>
 
-        {/* 6 Main Service Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {services.map((item) => {
-            const Icon = item.icon;
-            return (
-              <article
-                key={item.id}
-                className="group relative bg-white border border-slate-200/90 rounded-3xl p-8 shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between"
-              >
-                <div>
-                  <div className="flex items-center justify-between mb-6">
-                    <div
-                      className={`w-14 h-14 rounded-2xl flex items-center justify-center transition-transform group-hover:scale-110 ${
-                        item.color === 'sky'
-                          ? 'bg-sky-100 text-sky-600'
-                          : item.color === 'amber'
-                          ? 'bg-amber-100 text-amber-600'
-                          : 'bg-emerald-100 text-emerald-600'
-                      }`}
-                    >
-                      <Icon className="w-7 h-7" />
-                    </div>
-                    <span className="text-sm font-extrabold text-slate-400 tracking-wider">
-                      {item.num}
-                    </span>
-                  </div>
-
-                  <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-sky-500 transition-colors">
-                    {t(item.titleKey)}
-                  </h3>
-
-                  <p className="text-sm text-slate-600 leading-relaxed mb-6">
-                    {t(item.descKey)}
-                  </p>
-                </div>
-
-                <div>
-                  <div className="bg-[#F6FDF4] border-l-4 border-sky-500 rounded-r-xl p-3.5 mb-6 text-xs text-slate-700 leading-relaxed">
-                    {t(item.exampleKey)}
-                  </div>
-
-                  <Link
-                    href={`#book?service=${item.id}`}
-                    className="inline-flex items-center gap-2 text-sm font-bold text-sky-500 group-hover:text-sky-600 group-hover:gap-3 transition-all"
-                  >
-                    <span>{t('srv_quote_action')}</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </Link>
-                </div>
-              </article>
-            );
-          })}
-        </div>
-
-        {/* Supporting Engineering Disciplines (07 & 08) */}
-        <div className="mt-14 bg-gradient-to-r from-white to-slate-50 border border-dashed border-slate-300 rounded-3xl p-8 md:p-10 shadow-sm">
-          <div className="mb-6">
-            <h3 className="text-xl font-bold text-slate-900">
-              {t('srv_supporting_title')}
-            </h3>
-            <p className="text-sm text-slate-500 mt-1">
-              Foundational capabilities embedded into every client solution we engineer.
+            {/* Description */}
+            <p className="text-base sm:text-lg text-[#42645f] dark:text-[#94a3b8] leading-relaxed max-w-md">
+              From custom software to AI automation, we turn business challenges into resilient digital products.
             </p>
+
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-white border border-slate-200 rounded-2xl p-6 flex gap-4 items-start shadow-sm">
-              <div className="w-12 h-12 rounded-2xl bg-sky-100 text-sky-600 flex items-center justify-center shrink-0">
-                <Database className="w-6 h-6" />
+          {/* ============================================================== */}
+          {/* RIGHT COLUMN: The Clean Connected Tree of Services             */}
+          {/* ============================================================== */}
+          <div className="lg:col-span-7 relative z-10 w-full">
+            
+            <div className="relative">
+              
+              {/* Central Glowing Fiber Trunk (Desktop Only) */}
+              <div className="hidden md:block absolute left-6 lg:left-8 top-3 bottom-6 w-1 bg-gradient-to-b from-[#2a8a85] via-[#289b83] to-[#e8b54b] rounded-full opacity-60 shadow-[0_0_15px_rgba(42,138,133,0.5)]" />
+
+              {/* Connected Service Branches */}
+              <div className="space-y-5 md:space-y-6 md:pl-16 lg:pl-20">
+                {services.map((item, index) => {
+                  const Icon = item.icon;
+                  const isActive = activeBranch === index;
+
+                  return (
+                    <div
+                      key={item.id}
+                      onMouseEnter={() => setActiveBranch(index)}
+                      onMouseLeave={() => setActiveBranch(null)}
+                      className="relative group transition-all duration-300"
+                    >
+                      {/* Branch Connector Line from Trunk to Card with Real Traveling Energy Pulse */}
+                      <div className="hidden md:block absolute -left-16 lg:-left-20 top-7 w-16 lg:w-20 h-[2px] pointer-events-none overflow-hidden">
+                        {/* Static track */}
+                        <div 
+                          className={`w-full h-full transition-colors duration-300 ${
+                            isActive
+                              ? 'bg-[#289b83]'
+                              : 'bg-[#1a3a35]/20 dark:bg-white/20'
+                          }`}
+                        />
+                        {/* Real traveling energy pulse light beam on hover */}
+                        {isActive && (
+                          <div className="branch-energy-pulse" />
+                        )}
+                      </div>
+
+                      {/* Branch Node on the central trunk */}
+                      <div 
+                        className={`hidden md:flex absolute -left-16 lg:-left-20 top-5 -translate-x-1.5 w-4 h-4 rounded-full border-2 transition-all duration-300 items-center justify-center pointer-events-none ${
+                          isActive
+                            ? 'border-[#289b83] bg-white dark:bg-[#0F1721] scale-125 shadow-[0_0_12px_#289b83]'
+                            : 'border-[#1a3a35]/40 dark:border-white/40 bg-[#d4edea] dark:bg-[#151f2e]'
+                        }`}
+                      >
+                        <div className={`w-1.5 h-1.5 rounded-full transition-colors ${isActive ? 'bg-[#289b83]' : 'bg-transparent'}`} />
+                      </div>
+
+                      {/* Clean Service Card (Matching the user's minimalist reference screenshot) */}
+                      <Link
+                        href="/contact"
+                        className={`block relative rounded-2xl p-6 sm:p-7 transition-all duration-300 border shadow-sm ${
+                          isActive
+                            ? 'bg-white dark:bg-[#141f2e] border-[#2a8a85] dark:border-[#289b83] shadow-lg -translate-y-0.5'
+                            : 'bg-white/85 dark:bg-[#0F1721] border-[#1a3a35]/15 dark:border-white/10 hover:border-[#2a8a85]/50'
+                        }`}
+                      >
+                        {/* Top Icon */}
+                        <div className="mb-4">
+                          <div 
+                            className={`w-10 h-10 rounded-xl flex items-center justify-center transition-transform duration-300 ${
+                              isActive ? 'scale-110' : ''
+                            } bg-[#d4edea] dark:bg-[#151f2e] text-[#1a3a35] dark:text-[#289b83]`}
+                          >
+                            <Icon className="w-5 h-5" />
+                          </div>
+                        </div>
+
+                        {/* Heading */}
+                        <h3 className="text-lg sm:text-xl font-bold text-[#1a3a35] dark:text-[#f8fafc] mb-2 group-hover:text-[#2a8a85] dark:group-hover:text-[#289b83] transition-colors">
+                          {item.title}
+                        </h3>
+
+                        {/* Short, clear 2-line description */}
+                        <p className="text-sm text-[#42645f] dark:text-[#94a3b8] leading-relaxed mb-4">
+                          {item.desc}
+                        </p>
+
+                        {/* Minimalist arrow indicator at bottom left matching reference */}
+                        <div className="flex items-center text-[#1a3a35] dark:text-[#f8fafc] group-hover:text-[#2a8a85] dark:group-hover:text-[#289b83] transition-colors">
+                          <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                        </div>
+                      </Link>
+
+                    </div>
+                  );
+                })}
               </div>
-              <div>
-                <h4 className="text-base font-bold text-slate-900 mb-1">
-                  {t('srv7_title')}
-                </h4>
-                <p className="text-xs text-slate-600 leading-relaxed">
-                  {t('srv7_desc')}
-                </p>
-              </div>
+
             </div>
 
-            <div className="bg-white border border-slate-200 rounded-2xl p-6 flex gap-4 items-start shadow-sm">
-              <div className="w-12 h-12 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center shrink-0">
-                <Palette className="w-6 h-6" />
-              </div>
-              <div>
-                <h4 className="text-base font-bold text-slate-900 mb-1">
-                  {t('srv8_title')}
-                </h4>
-                <p className="text-xs text-slate-600 leading-relaxed">
-                  {t('srv8_desc')}
-                </p>
-              </div>
-            </div>
           </div>
+
         </div>
 
       </div>

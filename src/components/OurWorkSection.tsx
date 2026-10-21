@@ -2,233 +2,249 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { useLanguage } from '@/context/LanguageContext';
-import { ExternalLink, CheckCircle2, Handshake, Briefcase, Layers } from 'lucide-react';
-
-type CategoryType = 'all' | 'project' | 'client' | 'partner';
+import Image from 'next/image';
+import { ArrowRight, ChevronRight, X, ExternalLink } from 'lucide-react';
 
 export default function OurWorkSection() {
-  const { t } = useLanguage();
-  const [filter, setFilter] = useState<CategoryType>('all');
+  const [modalOpen, setModalOpen] = useState(false);
 
-  const items = [
+  // 2 Featured Projects for the main section
+  const featuredProjects = [
     {
-      id: 1,
-      category: 'client',
-      title: 'Apex Logistics & Cargo Portal',
-      industry: 'Logistics & Supply Chain • Tanzania',
-      desc: 'Multi-branch freight tracking portal enabling real-time consignment lookup, automated SMS status dispatches, and electronic waybill management.',
-      delivered: 'Custom Web Application, Tracking Dashboard, Automated SMS Integration',
-      tags: ['Web Application', 'SMS Gateway', 'PostgreSQL'],
-      serviceId: 'custom_software',
+      id: 'mtishbischolar',
+      title: 'Mtishbischolar',
+      category: 'Client Project',
+      desc: 'Modern academic scholarship and student opportunity discovery platform connecting learners to global education programs.',
+      image: '/pictures/mtishb.jpg',
+      tags: ['Web Platform', 'Scholarships', 'Next.js', 'PostgreSQL'],
     },
     {
-      id: 2,
-      category: 'project',
-      title: 'EduSphere Academic Portal',
-      industry: 'School Management • East Africa',
-      desc: 'Comprehensive school administration platform integrating fee reconciliations with mobile payment gateways (M-Pesa), student gradebooks, and parent portals.',
-      delivered: 'Integrated Portal, Mobile Payment Hook, Role-Based Access Controls',
-      tags: ['Custom Software', 'M-Pesa API', 'Analytics Dashboard'],
-      serviceId: 'custom_software',
-    },
-    {
-      id: 3,
-      category: 'partner',
-      title: 'CloudBridge Africa',
-      industry: 'Cloud Infrastructure & Managed DevOps',
-      desc: 'Infrastructure collaboration facilitating high-availability cloud deployments, database replication, and managed backend scaling across East Africa.',
-      delivered: 'Secure Cloud Hosting Architecture, Zero-Downtime Migration Protocols',
-      tags: ['Cloud Infrastructure', 'SaaS Hosting', 'High Availability'],
-      serviceId: 'saas',
-    },
-    {
-      id: 4,
-      category: 'client',
-      title: 'Safari Horizon Lodges',
-      industry: 'Tourism & Hospitality • Arusha',
-      desc: 'High-converting safari booking and room reservation website featuring interactive itineraries, multi-currency switcher, and instant calendar availability.',
-      delivered: 'Corporate Website, Custom Booking Calendar, SEO Optimization',
-      tags: ['Corporate Website', 'Booking Engine', 'SEO'],
-      serviceId: 'website',
-    },
-    {
-      id: 5,
-      category: 'project',
-      title: 'QuickPay Merchant Terminal',
-      industry: 'Fintech & Retail Point-of-Sale',
-      desc: 'Android mobile application enabling local store attendants to generate instant QR receipts and reconcile cash and mobile wallet collections in real time.',
-      delivered: 'Native Android App, Offline-First Sync, Transaction Reporting',
-      tags: ['Mobile App', 'Android', 'Payment Gateways'],
-      serviceId: 'mobile_app',
-    },
-    {
-      id: 6,
-      category: 'partner',
-      title: 'Nexus Payment Network',
-      industry: 'Fintech Integration Alliance',
-      desc: 'Direct technical integration channel ensuring fast-track settlement onboarding, low latency API connectivity, and secure mobile money transactions.',
-      delivered: 'Standardized Payment Webhooks, High-Security Tokenization',
-      tags: ['API Integration', 'Fintech', 'Webhooks'],
-      serviceId: 'api_integration',
+      id: 'tariqtech',
+      title: 'Tariq Tech Limited',
+      category: 'Flagship Platform',
+      desc: 'Official corporate digital platform and technology consultancy portal delivering custom software, AI workflows, and cloud engineering.',
+      image: '/pictures/tariqtech.jpg',
+      tags: ['Corporate Portal', 'AI Automations', 'Custom Systems', 'TypeScript'],
     },
   ];
 
-  const filteredItems = filter === 'all' 
-    ? items 
-    : items.filter((item) => item.category === filter);
+  // All projects for the "View All Projects" modal
+  const allProjects = [
+    ...featuredProjects,
+    {
+      id: 'apex',
+      title: 'Apex Logistics & Cargo Portal',
+      category: 'Client Project',
+      desc: 'Multi-branch freight tracking portal enabling real-time consignment lookup, automated SMS status dispatches, and electronic waybill management.',
+      image: '/pictures/Established Companies.jpg',
+      tags: ['Web Application', 'SMS Gateway', 'PostgreSQL'],
+    },
+    {
+      id: 'edusphere',
+      title: 'EduSphere Academic Portal',
+      category: 'Client Project',
+      desc: 'Comprehensive school administration platform integrating fee reconciliations with mobile payment gateways, student gradebooks, and parent portals.',
+      image: '/pictures/Small & Medium Businesse.jpg',
+      tags: ['Custom Software', 'Mobile Payment API', 'Analytics Dashboard'],
+    },
+    {
+      id: 'cloudbridge',
+      title: 'CloudBridge Africa',
+      category: 'Strategic Partner',
+      desc: 'Infrastructure collaboration facilitating high-availability cloud deployments, database replication, and managed backend scaling.',
+      image: '/pictures/International Clients.jpg',
+      tags: ['Cloud Infrastructure', 'SaaS Hosting', 'High Availability'],
+    },
+    {
+      id: 'safari',
+      title: 'Safari Horizon Lodges',
+      category: 'Client Project',
+      desc: 'High-converting safari booking and room reservation website featuring interactive itineraries, multi-currency switcher, and instant calendar availability.',
+      image: '/pictures/Startups & Entrepreneurs.jpg',
+      tags: ['Corporate Website', 'Booking Engine', 'SEO'],
+    },
+  ];
 
   return (
     <section className="py-20 md:py-28 relative" id="work">
       <div className="max-w-7xl mx-auto px-4 md:px-8">
         
-        {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-12">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-100 text-amber-800 text-xs font-semibold uppercase tracking-wider mb-4">
-            <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
-            <span>{t('work_badge')}</span>
+        {/* Section Header: Centered */}
+        <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#d4edea] dark:bg-[#0F1721] text-[#1a3a35] dark:text-[#f8fafc] text-xs font-semibold uppercase tracking-wider mb-4 border border-[#1a3a35]/15 dark:border-white/10">
+            <span className="w-2 h-2 rounded-full bg-[#2a8a85] dark:bg-[#289b83] animate-pulse" />
+            <span>Verified Track Record</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-4">
-            {t('work_title')}{' '}
-            <span className="text-sky-500">{t('work_title_highlight')}</span>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#1a3a35] dark:text-[#f8fafc] tracking-tight mb-4">
+            Our Work, Clients & Partners
           </h2>
-          <p className="text-base sm:text-lg text-slate-600">
-            {t('work_subtitle')}
+          <p className="text-base sm:text-lg text-[#42645f] dark:text-[#94a3b8] leading-relaxed">
+            Real digital products built with precision. We clearly distinguish between client deliveries and strategic partners.
           </p>
         </div>
 
-        {/* Filter Tabs */}
-        <div className="flex items-center justify-center flex-wrap gap-2 sm:gap-3 mb-14">
-          <button
-            type="button"
-            onClick={() => setFilter('all')}
-            className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold transition-all ${
-              filter === 'all'
-                ? 'bg-sky-500 text-white shadow-md shadow-sky-500/25'
-                : 'bg-white text-slate-600 border border-slate-200 hover:border-sky-300'
-            }`}
-          >
-            <Layers className="w-4 h-4" />
-            <span>{t('filter_all')}</span>
-          </button>
-
-          <button
-            type="button"
-            onClick={() => setFilter('project')}
-            className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold transition-all ${
-              filter === 'project'
-                ? 'bg-sky-500 text-white shadow-md shadow-sky-500/25'
-                : 'bg-white text-slate-600 border border-slate-200 hover:border-sky-300'
-            }`}
-          >
-            <Briefcase className="w-4 h-4" />
-            <span>{t('filter_projects')}</span>
-          </button>
-
-          <button
-            type="button"
-            onClick={() => setFilter('client')}
-            className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold transition-all ${
-              filter === 'client'
-                ? 'bg-sky-500 text-white shadow-md shadow-sky-500/25'
-                : 'bg-white text-slate-600 border border-slate-200 hover:border-sky-300'
-            }`}
-          >
-            <CheckCircle2 className="w-4 h-4" />
-            <span>{t('filter_clients')}</span>
-          </button>
-
-          <button
-            type="button"
-            onClick={() => setFilter('partner')}
-            className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold transition-all ${
-              filter === 'partner'
-                ? 'bg-sky-500 text-white shadow-md shadow-sky-500/25'
-                : 'bg-white text-slate-600 border border-slate-200 hover:border-sky-300'
-            }`}
-          >
-            <Handshake className="w-4 h-4" />
-            <span>{t('filter_partners')}</span>
-          </button>
-        </div>
-
-        {/* Portfolio Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredItems.map((item) => (
-            <div
-              key={item.id}
-              className="bg-white border border-slate-200/90 rounded-3xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between"
+        {/* 2 Featured Project Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-[840px] mx-auto">
+          {featuredProjects.map((project) => (
+            <Link
+              key={project.id}
+              href="/contact"
+              className="group relative h-[330px] sm:h-[360px] rounded-3xl overflow-hidden border border-[#1a3a35]/15 dark:border-white/10 shadow-sm transition-all duration-300 hover:shadow-2xl hover:-translate-y-1.5 block cursor-pointer"
             >
-              <div className="p-7">
-                <div className="flex items-center justify-between mb-4">
-                  <span
-                    className={`text-[11px] font-extrabold uppercase px-3 py-1 rounded-full tracking-wider ${
-                      item.category === 'client'
-                        ? 'bg-sky-100 text-sky-700'
-                        : item.category === 'partner'
-                        ? 'bg-amber-100 text-amber-700'
-                        : 'bg-emerald-100 text-emerald-700'
-                    }`}
-                  >
-                    {item.category === 'client'
-                      ? 'Our Client'
-                      : item.category === 'partner'
-                      ? 'Strategic Partner'
-                      : 'Project'}
-                  </span>
-                  <span className="text-xs text-slate-400 font-medium">Verified</span>
-                </div>
+              {/* Background Image */}
+              <Image
+                src={project.image}
+                alt={project.title}
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-cover object-center transition-all duration-700 ease-out group-hover:scale-105 group-hover:brightness-105"
+              />
 
-                <h3 className="text-xl font-bold text-slate-900 mb-1">
-                  {item.title}
+              {/* Ambient Vignette Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-transparent group-hover:from-black/80 transition-colors duration-300" />
+
+              {/* Category Pill Top Left */}
+              <div className="absolute top-4 left-4 z-10">
+                <span className="text-[11px] font-extrabold uppercase px-3 py-1 rounded-full tracking-wider bg-black/50 backdrop-blur-md text-white border border-white/20">
+                  {project.category}
+                </span>
+              </div>
+
+              {/* Frosted Glass Overlay Card at Bottom */}
+              <div className="absolute inset-x-4 bottom-4 rounded-2xl bg-black/55 dark:bg-black/70 backdrop-blur-md border border-white/20 p-5 transition-all duration-300 ease-out shadow-2xl flex flex-col justify-end">
+                
+                {/* Title */}
+                <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight leading-snug drop-shadow-sm">
+                  {project.title}
                 </h3>
-                <div className="text-xs text-sky-600 font-semibold mb-4">
-                  {item.industry}
+
+                {/* Expandable Description on Hover */}
+                <div className="grid grid-rows-[0fr] group-hover:grid-rows-[1fr] transition-all duration-300 ease-out">
+                  <div className="overflow-hidden">
+                    <p className="text-xs sm:text-sm text-slate-100/90 leading-relaxed pt-2.5 drop-shadow-sm">
+                      {project.desc}
+                    </p>
+                    <div className="flex flex-wrap gap-1.5 pt-3">
+                      {project.tags.map((tag, tIdx) => (
+                        <span
+                          key={tIdx}
+                          className="text-[11px] font-semibold bg-white/15 text-white px-2.5 py-0.5 rounded-md"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
                 </div>
 
-                <p className="text-sm text-slate-600 leading-relaxed mb-6">
-                  {item.desc}
-                </p>
-
-                <div className="bg-[#F6FDF4] border border-slate-200/60 rounded-xl p-3.5 mb-6 text-xs text-slate-700 leading-relaxed">
-                  <strong className="block text-slate-900 font-bold mb-1">
-                    {item.category === 'partner'
-                      ? t('work_collab_label')
-                      : t('work_deliverable_label')}
-                  </strong>
-                  {item.delivered}
+                {/* Explore more label and arrow */}
+                <div className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-[#e8b54b] group-hover:text-white transition-colors mt-3">
+                  <span>Explore more</span>
+                  <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
                 </div>
 
-                <div className="flex flex-wrap gap-1.5">
-                  {item.tags.map((tag, tIdx) => (
-                    <span
-                      key={tIdx}
-                      className="text-[11px] font-medium bg-slate-100 text-slate-600 px-2.5 py-1 rounded-md"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
               </div>
-
-              <div className="px-7 py-4 bg-slate-50 border-t border-slate-100 flex items-center justify-between">
-                <Link
-                  href={`#book?service=${item.serviceId}`}
-                  className="text-xs font-bold text-sky-600 hover:text-sky-700 inline-flex items-center gap-1.5"
-                >
-                  <span>
-                    {item.category === 'partner'
-                      ? t('work_learn_btn')
-                      : t('work_similar_btn')}
-                  </span>
-                  <ExternalLink className="w-3.5 h-3.5" />
-                </Link>
-              </div>
-            </div>
+            </Link>
           ))}
         </div>
 
+        {/* View All Projects Action Button */}
+        <div className="mt-12 sm:mt-14 text-center">
+          <button
+            type="button"
+            onClick={() => setModalOpen(true)}
+            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-[#142d29] hover:bg-[#1a3a35] dark:bg-[#1a3a35] dark:hover:bg-[#234d47] text-white text-sm font-bold shadow-lg shadow-[#142d29]/20 transition-all hover:-translate-y-0.5 cursor-pointer"
+          >
+            <span>View All Projects</span>
+            <ChevronRight className="w-4 h-4" />
+          </button>
+        </div>
+
       </div>
+
+      {/* View All Projects Modal */}
+      {modalOpen && (
+        <div 
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200"
+          onClick={() => setModalOpen(false)}
+        >
+          <div 
+            className="relative w-full max-w-4xl max-h-[85vh] overflow-y-auto bg-white dark:bg-[#0F1721] rounded-3xl p-6 sm:p-8 shadow-2xl border border-[#1a3a35]/15 dark:border-white/10"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Modal Header */}
+            <div className="flex items-center justify-between pb-6 mb-6 border-b border-[#1a3a35]/10 dark:border-white/10">
+              <div>
+                <h3 className="text-2xl font-extrabold text-[#1a3a35] dark:text-white tracking-tight">
+                  All Featured Projects
+                </h3>
+                <p className="text-xs sm:text-sm text-[#42645f] dark:text-[#94a3b8] mt-1">
+                  Complete portfolio of client solutions, custom software, and digital platforms.
+                </p>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => setModalOpen(false)}
+                className="w-10 h-10 rounded-full bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300 hover:text-black dark:hover:text-white flex items-center justify-center transition-colors focus:outline-none"
+                aria-label="Close modal"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Modal Projects Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              {allProjects.map((item) => (
+                <div
+                  key={item.id}
+                  className="bg-slate-50 dark:bg-white/5 border border-[#1a3a35]/10 dark:border-white/10 rounded-2xl p-5 flex flex-col justify-between hover:border-[#2a8a85]/40 transition-colors"
+                >
+                  <div>
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-[11px] font-extrabold uppercase px-2.5 py-0.5 rounded-full bg-[#d4edea] dark:bg-white/10 text-[#1a3a35] dark:text-[#5fd4ce]">
+                        {item.category}
+                      </span>
+                    </div>
+
+                    <h4 className="text-lg font-bold text-[#1a3a35] dark:text-white mb-2">
+                      {item.title}
+                    </h4>
+
+                    <p className="text-xs text-[#42645f] dark:text-[#94a3b8] leading-relaxed mb-4">
+                      {item.desc}
+                    </p>
+                  </div>
+
+                  <div>
+                    <div className="flex flex-wrap gap-1.5 mb-4">
+                      {item.tags.map((tag, tIdx) => (
+                        <span
+                          key={tIdx}
+                          className="text-[10px] font-semibold bg-[#dfeff2] dark:bg-white/10 text-[#1a3a35] dark:text-slate-200 px-2 py-0.5 rounded"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+
+                    <Link
+                      href="/contact"
+                      onClick={() => setModalOpen(false)}
+                      className="inline-flex items-center gap-1.5 text-xs font-bold text-[#2a8a85] dark:text-[#5fd4ce] hover:underline"
+                    >
+                      <span>Inquire about similar solution</span>
+                      <ExternalLink className="w-3.5 h-3.5" />
+                    </Link>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+          </div>
+        </div>
+      )}
+
     </section>
   );
 }

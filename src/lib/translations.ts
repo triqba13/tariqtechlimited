@@ -1,4 +1,4 @@
-export type Language = 'en' | 'sw';
+export type Language = 'en' | 'sw' | 'fr' | 'es' | 'it';
 
 export interface TranslationDictionary {
   [key: string]: string;
@@ -19,12 +19,20 @@ export const translations: Record<Language, TranslationDictionary> = {
     // Nav
     nav_home: "Home",
     nav_services: "Services",
+    nav_projects: "Projects",
     nav_work: "Our Work",
-    nav_serve: "Who We Serve",
+    nav_serve: "Clients",
+    nav_clients: "Clients",
+    nav_blog: "Blog",
     nav_about: "About Us",
     nav_pricing: "Pricing",
     nav_contact: "Contact",
+    nav_more: "More",
+    nav_more_about: "About Us",
+    nav_more_pricing: "Pricing",
+    nav_more_contact: "Contact",
     nav_book_btn: "Book a Consultation",
+    nav_book_call: "Book a Call",
 
     // Stats Ribbon
     stat_projects_val: "50+",
@@ -258,12 +266,20 @@ export const translations: Record<Language, TranslationDictionary> = {
     // Nav
     nav_home: "Mwanzo",
     nav_services: "Huduma",
+    nav_projects: "Miradi",
     nav_work: "Kazi Zetu",
-    nav_serve: "Wateja Wetu",
+    nav_serve: "Wateja",
+    nav_clients: "Wateja",
+    nav_blog: "Blog",
     nav_about: "Kuhusu Sisi",
     nav_pricing: "Gharama",
     nav_contact: "Mawasiliano",
+    nav_more: "Zaidi",
+    nav_more_about: "Kuhusu Sisi",
+    nav_more_pricing: "Gharama",
+    nav_more_contact: "Mawasiliano",
     nav_book_btn: "Weka Ushauri (TSh 30,000)",
+    nav_book_call: "Weka Miadi",
 
     // Stats Ribbon
     stat_projects_val: "50+",
@@ -481,5 +497,194 @@ export const translations: Record<Language, TranslationDictionary> = {
     footer_rights: "© 2026 TariqTech Limited. Haki zote zimehifadhiwa.",
     footer_privacy: "Sera ya Faragha",
     footer_terms: "Vigezo na Masharti"
+  },
+
+  fr: {
+    brand_tagline: "Nous Construisons des Solutions Numériques Qui Comptent.",
+    brand_subtagline: "Des solutions innovantes pour un avenir plus intelligent",
+    hero_title_p1: "Nous Construisons des Solutions Qui",
+    hero_title_highlight: "Créent un Impact Réel.",
+    hero_desc: "TariqTech Limited fournit du développement logiciel, de l'automatisation IA et des solutions numériques pour aider les entreprises à se développer.",
+    hero_btn_start: "Démarrer un Projet",
+    hero_btn_services: "Nos Services",
+    hero_guarantee: "Livraisons vérifiées & confiance basée sur les étapes",
+
+    nav_home: "Accueil",
+    nav_services: "Services",
+    nav_projects: "Projets",
+    nav_work: "Nos Réalisations",
+    nav_serve: "Clients",
+    nav_clients: "Clients",
+    nav_blog: "Blog",
+    nav_about: "À Propos",
+    nav_pricing: "Tarifs",
+    nav_contact: "Contact",
+    nav_more: "Plus",
+    nav_more_about: "À Propos",
+    nav_more_pricing: "Tarifs",
+    nav_more_contact: "Contact",
+    nav_book_btn: "Réserver une Consultation",
+    nav_book_call: "Réserver un Appel",
+
+    stat_projects_val: "50+",
+    stat_projects_lbl: "Projets Réalisés",
+    stat_clients_val: "30+",
+    stat_clients_lbl: "Clients Satisfaits",
+    stat_countries_val: "5+",
+    stat_countries_lbl: "Pays Desservis",
+    stat_satisfaction_val: "99%",
+    stat_satisfaction_lbl: "Satisfaction Client",
+
+    services_badge: "Nos Services Principaux",
+    services_title: "Solutions Numériques Complètes pour",
+    services_title_highlight: "Entreprises Modernes",
+    services_subtitle: "Du logiciel sur mesure à l'automatisation IA, nous transformons vos défis en produits numériques fiables.",
+    srv_quote_action: "Demander un Devis",
+
+    serve_badge: "Notre Cible & Clients",
+    serve_title: "Une Technologie Conçue Autour de",
+    serve_title_highlight: "Votre Entreprise",
+    serve_subtitle: "Nous aidons les entreprises à transformer leurs idées en produits numériques fiables.",
+
+    book_badge: "Consultation Directe",
+    book_title: "Planifiez une Consultation",
+    book_title_highlight: "Stratégique",
+    book_subtitle: "Échangez directement avec notre équipe technique pour définir l'architecture de votre projet.",
+
+    about_badge: "Qui Sommes-Nous",
+    about_title: "Nous Développons des Logiciels Qui",
+    about_title_highlight: "Génèrent une Vraie Croissance",
+
+    contact_badge: "Contactez-Nous",
+    contact_title: "Démarrons une Discussion",
+    contact_title_highlight: "Sur Votre Projet",
+
+    footer_rights: "© 2026 TariqTech Limited. Tous droits réservés."
+  },
+
+  es: {
+    brand_tagline: "Construimos Soluciones Digitales Que Importan.",
+    brand_subtagline: "Soluciones innovadoras para un mañana más inteligente",
+    hero_title_p1: "Construimos Soluciones Digitales Que",
+    hero_title_highlight: "Crean un Impacto Real.",
+    hero_desc: "TariqTech Limited ofrece desarrollo de software, automatización con IA y soluciones digitales para hacer crecer su negocio.",
+    hero_btn_start: "Comenzar un Proyecto",
+    hero_btn_services: "Nuestros Servicios",
+    hero_guarantee: "Entregas verificadas y pagos transparentes por hitos",
+
+    nav_home: "Inicio",
+    nav_services: "Servicios",
+    nav_projects: "Proyectos",
+    nav_work: "Nuestro Trabajo",
+    nav_serve: "Clientes",
+    nav_clients: "Clientes",
+    nav_blog: "Blog",
+    nav_about: "Nosotros",
+    nav_pricing: "Precios",
+    nav_contact: "Contacto",
+    nav_more: "Más",
+    nav_more_about: "Nosotros",
+    nav_more_pricing: "Precios",
+    nav_more_contact: "Contacto",
+    nav_book_btn: "Reservar Consulta",
+    nav_book_call: "Agendar Llamada",
+
+    stat_projects_val: "50+",
+    stat_projects_lbl: "Proyectos Realizados",
+    stat_clients_val: "30+",
+    stat_clients_lbl: "Clientes Satisfechos",
+    stat_countries_val: "5+",
+    stat_countries_lbl: "Países Atendidos",
+    stat_satisfaction_val: "99%",
+    stat_satisfaction_lbl: "Satisfacción del Cliente",
+
+    services_badge: "Servicios Principales",
+    services_title: "Soluciones Digitales Completas para",
+    services_title_highlight: "Negocios Modernos",
+    services_subtitle: "Desde software a medida hasta automatización con IA, resolvemos sus retos comerciales.",
+    srv_quote_action: "Solicitar Cotización",
+
+    serve_badge: "Clientes y Enfoque",
+    serve_title: "Tecnología Diseñada para",
+    serve_title_highlight: "Su Negocio",
+    serve_subtitle: "Ayudamos a las empresas a transformar ideas en productos digitales escalables y seguros.",
+
+    book_badge: "Consulta Directa",
+    book_title: "Reserve una Consulta",
+    book_title_highlight: "Estratégica",
+    book_subtitle: "Hable directamente con nuestro equipo técnico para planificar su proyecto.",
+
+    about_badge: "Quiénes Somos",
+    about_title: "Desarrollamos Software Que",
+    about_title_highlight: "Genera Crecimiento Real",
+
+    contact_badge: "Contáctenos",
+    contact_title: "Iniciemos la Conversación",
+    contact_title_highlight: "Sobre su Proyecto",
+
+    footer_rights: "© 2026 TariqTech Limited. Todos los derechos reservados."
+  },
+
+  it: {
+    brand_tagline: "Costruiamo Soluzioni Digitali di Valore.",
+    brand_subtagline: "Soluzioni innovative per un domani più intelligente",
+    hero_title_p1: "Costruiamo Soluzioni Digitali Che",
+    hero_title_highlight: "Creano un Impatto Reale.",
+    hero_desc: "TariqTech Limited fornisce sviluppo software, automazione AI e soluzioni digitali per far crescere la tua azienda.",
+    hero_btn_start: "Inizia un Progetto",
+    hero_btn_services: "I Nostri Servizi",
+    hero_guarantee: "Consegne verificate e fiducia basata su tappe chiare",
+
+    nav_home: "Home",
+    nav_services: "Servizi",
+    nav_projects: "Progetti",
+    nav_work: "Nostri Lavori",
+    nav_serve: "Clienti",
+    nav_clients: "Clienti",
+    nav_blog: "Blog",
+    nav_about: "Chi Siamo",
+    nav_pricing: "Prezzi",
+    nav_contact: "Contatto",
+    nav_more: "Altro",
+    nav_more_about: "Chi Siamo",
+    nav_more_pricing: "Prezzi",
+    nav_more_contact: "Contatto",
+    nav_book_btn: "Prenota Consulenza",
+    nav_book_call: "Prenota Chiamata",
+
+    stat_projects_val: "50+",
+    stat_projects_lbl: "Progetti Completati",
+    stat_clients_val: "30+",
+    stat_clients_lbl: "Clienti Soddisfatti",
+    stat_countries_val: "5+",
+    stat_countries_lbl: "Paesi Raggiunti",
+    stat_satisfaction_val: "99%",
+    stat_satisfaction_lbl: "Soddisfazione Clienti",
+
+    services_badge: "Servizi Principali",
+    services_title: "Soluzioni Digitali Complete per",
+    services_title_highlight: "Aziende Moderne",
+    services_subtitle: "Dal software personalizzato all'automazione AI, trasformiamo sfide in prodotti digitali.",
+    srv_quote_action: "Richiedi Preventivo",
+
+    serve_badge: "Focus & Clienti",
+    serve_title: "Tecnologia Costruita Attorno a",
+    serve_title_highlight: "Tua Azienda",
+    serve_subtitle: "Aiutiamo le imprese a trasformare idee in prodotti digitali affidabili.",
+
+    book_badge: "Consulenza Diretta",
+    book_title: "Prenota una Consulenza",
+    book_title_highlight: "Strategica",
+    book_subtitle: "Pianifica l'architettura tecnica del tuo progetto con i nostri esperti.",
+
+    about_badge: "Chi Siamo",
+    about_title: "Creiamo Sistemi Che",
+    about_title_highlight: "Portano Vera Crescita",
+
+    contact_badge: "Contattaci",
+    contact_title: "Iniziamo a Parlare",
+    contact_title_highlight: "Del Tuo Progetto",
+
+    footer_rights: "© 2026 TariqTech Limited. Tutti i diritti riservati."
   }
 };

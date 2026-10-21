@@ -2,9 +2,11 @@ import Navbar from '@/components/Navbar';
 import HeroSection from '@/components/HeroSection';
 import ServicesSection from '@/components/ServicesSection';
 import WhoWeServeSection from '@/components/WhoWeServeSection';
+import ProcessSection from '@/components/ProcessSection';
+import IntegrationsSection from '@/components/IntegrationsSection';
 import OurWorkSection from '@/components/OurWorkSection';
-import PricingSection from '@/components/PricingSection';
-import ConsultationBooking from '@/components/ConsultationBooking';
+import FAQSection from '@/components/FAQSection';
+import ClientsFeedbackSection from '@/components/ClientsFeedbackSection';
 import AboutSection from '@/components/AboutSection';
 import ContactSection from '@/components/ContactSection';
 import Footer from '@/components/Footer';
@@ -17,9 +19,11 @@ export default function Home() {
         <HeroSection />
         <ServicesSection />
         <WhoWeServeSection />
+        <ProcessSection />
+        <IntegrationsSection />
         <OurWorkSection />
-        <PricingSection />
-        <ConsultationBooking />
+        <FAQSection />
+        <ClientsFeedbackSection />
         <AboutSection />
         <ContactSection />
       </main>

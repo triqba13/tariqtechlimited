@@ -2,6 +2,9 @@ import type { Metadata } from 'next';
 import { Plus_Jakarta_Sans, Inter } from 'next/font/google';
 import './globals.css';
 import { LanguageProvider } from '@/context/LanguageContext';
+import { ThemeProvider } from '@/context/ThemeContext';
+import GoogleTranslateScript from '@/components/GoogleTranslateScript';
+import FloatingWidgets from '@/components/FloatingWidgets';
 
 const plusJakarta = Plus_Jakarta_Sans({
   subsets: ['latin'],
@@ -84,10 +87,14 @@ export default function RootLayout({
       lang="en"
       className={`${plusJakarta.variable} ${inter.variable} scroll-smooth`}
     >
-      <body className="min-h-screen flex flex-col font-sans bg-[#F6FDF4] text-slate-900 selection:bg-sky-500 selection:text-white">
-        <LanguageProvider>
-          {children}
-        </LanguageProvider>
+      <body className="min-h-screen flex flex-col font-sans bg-[#dfeff2] dark:bg-[#0d1e1c] text-[#1a3a35] dark:text-[#e3f5f3] selection:bg-[#2a8a85] selection:text-white transition-colors duration-300">
+        <ThemeProvider>
+          <LanguageProvider>
+            {children}
+            <FloatingWidgets />
+            <GoogleTranslateScript />
+          </LanguageProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
