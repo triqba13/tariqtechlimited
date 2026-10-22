@@ -12,7 +12,6 @@ import {
   Zap, 
   ChevronDown, 
   Info, 
-  CreditCard, 
   Mail 
 } from 'lucide-react';
 
@@ -61,10 +60,10 @@ export default function Navbar() {
   // Top navbar links (before scroll): includes Projects & Blog with unique IDs
   const topLinks = [
     { id: 'top-nav-services', href: '/#services', label: t('nav_services') },
-    { id: 'top-nav-projects', href: '/#projects', label: t('nav_projects') },
+    { id: 'top-nav-projects', href: '/projects', label: t('nav_projects') },
     { id: 'top-nav-clients', href: '/#who-we-serve', label: t('nav_clients') },
-    { id: 'top-nav-work', href: '/#work', label: t('nav_work') },
-    { id: 'top-nav-blog', href: '/#blog', label: t('nav_blog') },
+    { id: 'top-nav-work', href: '/projects', label: t('nav_work') },
+    { id: 'top-nav-blog', href: '/blog', label: t('nav_blog') },
   ];
 
   // Scrolled floating pill navbar links: Projects is removed, includes Blog
@@ -72,12 +71,11 @@ export default function Navbar() {
     { id: 'pill-nav-services', href: '/#services', label: t('nav_services') },
     { id: 'pill-nav-clients', href: '/#who-we-serve', label: t('nav_clients') },
     { id: 'pill-nav-work', href: '/#work', label: t('nav_work') },
-    { id: 'pill-nav-blog', href: '/#blog', label: t('nav_blog') },
+    { id: 'pill-nav-blog', href: '/blog', label: t('nav_blog') },
   ];
 
   const moreLinks = [
-    { href: '/#about', label: t('nav_more_about'), desc: 'Our mission & story', icon: Info },
-    { href: '/#pricing', label: t('nav_more_pricing'), desc: 'Investment tiers & calculator', icon: CreditCard },
+    { href: '/about', label: t('nav_more_about'), desc: 'Our mission & story', icon: Info },
     { href: '/contact', label: t('nav_more_contact'), desc: 'Reach out directly', icon: Mail },
   ];
 

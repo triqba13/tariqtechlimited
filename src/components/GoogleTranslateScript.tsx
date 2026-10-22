@@ -31,6 +31,42 @@ export default function GoogleTranslateScript() {
       script.async = true;
       document.body.appendChild(script);
     }
+
+    // Observer to strictly suppress Google Translate top banner frame and body top displacement
+    const suppressBanner = () => {
+      const banners = document.querySelectorAll<HTMLElement>(
+        '.goog-te-banner-frame, iframe.skiptranslate, body > .skiptranslate'
+      );
+      banners.forEach((b) => {
+        b.style.setProperty('display', 'none', 'important');
+        b.style.setProperty('visibility', 'hidden', 'important');
+        b.style.setProperty('height', '0px', 'important');
+      });
+
+      if (document.body.style.top && document.body.style.top !== '0px') {
+        document.body.style.setProperty('top', '0px', 'important');
+      }
+      if (document.body.style.position && document.body.style.position !== 'static') {
+        document.body.style.setProperty('position', 'static', 'important');
+      }
+    };
+
+    const observer = new MutationObserver(() => {
+      suppressBanner();
+    });
+
+    observer.observe(document.body, {
+      attributes: true,
+      attributeFilter: ['style', 'class'],
+      childList: true,
+    });
+
+    const interval = setInterval(suppressBanner, 300);
+
+    return () => {
+      observer.disconnect();
+      clearInterval(interval);
+    };
   }, []);
 
   return (

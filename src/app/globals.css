@@ -166,29 +166,31 @@ html {
 /* ============================================================== */
 /* SILENT GOOGLE TRANSLATE STYLING                                */
 /* ============================================================== */
+body > .skiptranslate,
+.skiptranslate > iframe,
 .goog-te-banner-frame,
-iframe.goog-te-banner-frame {
+iframe.goog-te-banner-frame,
+#goog-gt-tt,
+.goog-te-balloon-frame,
+.goog-tooltip,
+.goog-tooltip:hover,
+.goog-te-spinner-pos {
   display: none !important;
   visibility: hidden !important;
+  opacity: 0 !important;
+  height: 0px !important;
+  width: 0px !important;
+  max-height: 0px !important;
+  pointer-events: none !important;
 }
+
 body {
   top: 0px !important;
   position: static !important;
 }
-#goog-gt-tt,
-.goog-te-balloon-frame,
-.goog-tooltip,
-.goog-tooltip:hover {
-  display: none !important;
-}
+
 .goog-text-highlight {
   background: none !important;
   box-shadow: none !important;
-}
-#google_translate_element {
-  display: none !important;
-}
-.goog-te-spinner-pos {
-  display: none !important;
 }
 

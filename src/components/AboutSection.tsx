@@ -142,7 +142,7 @@ export default function AboutSection() {
                   </div>
                 </div>
                 <Link
-                  href="#contact"
+                  href="/contact"
                   className="bg-[#1a3a35] hover:bg-[#142d29] dark:bg-[#289b83] dark:hover:bg-[#20836e] text-white text-xs font-semibold px-4 py-2 rounded-full shadow-sm transition-colors"
                 >
                   {t('nav_contact')}

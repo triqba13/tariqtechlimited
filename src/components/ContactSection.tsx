@@ -263,7 +263,7 @@ export default function ContactSection() {
                     </button>
                     
                     <a
-                      href="https://wa.me/255700000000"
+                      href="https://wa.me/255744588248"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center justify-center gap-1.5 px-4 py-3 rounded-full border border-slate-200 dark:border-white/10 text-xs font-bold text-[#1a3a35] dark:text-white hover:bg-slate-50 dark:hover:bg-white/5 transition-colors"

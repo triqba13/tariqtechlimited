@@ -5,6 +5,7 @@ import { LanguageProvider } from '@/context/LanguageContext';
 import { ThemeProvider } from '@/context/ThemeContext';
 import GoogleTranslateScript from '@/components/GoogleTranslateScript';
 import FloatingWidgets from '@/components/FloatingWidgets';
+import CookieConsent from '@/components/CookieConsent';
 
 const plusJakarta = Plus_Jakarta_Sans({
   subsets: ['latin'],
@@ -77,6 +78,89 @@ export const metadata: Metadata = {
   },
 };
 
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': 'https://tariqtechlimited.com/#organization',
+      name: 'TariqTech Limited',
+      url: 'https://tariqtechlimited.com',
+      logo: 'https://tariqtechlimited.com/favicon-48x48.png',
+      image: 'https://tariqtechlimited.com/og-image.png',
+      description:
+        'TariqTech Limited delivers bespoke software development, mobile apps, Big Data Analytics, and AI business automation in Dar es Salaam, Tanzania.',
+      telephone: '+255744588248',
+      email: 'support@tariqtechlimited.com',
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: 'Dar es Salaam',
+        addressCountry: 'Tanzania',
+      },
+      sameAs: [
+        'https://github.com',
+        'https://linkedin.com',
+        'https://instagram.com',
+      ],
+    },
+    {
+      '@type': 'WebSite',
+      '@id': 'https://tariqtechlimited.com/#website',
+      url: 'https://tariqtechlimited.com',
+      name: 'TariqTech Limited',
+      publisher: {
+        '@id': 'https://tariqtechlimited.com/#organization',
+      },
+      potentialAction: {
+        '@type': 'SearchAction',
+        target: 'https://tariqtechlimited.com/projects?search={search_term_string}',
+        'query-input': 'required name=search_term_string',
+      },
+    },
+    {
+      '@type': 'ItemList',
+      name: 'TariqTech Sitelinks',
+      itemListElement: [
+        {
+          '@type': 'SiteNavigationElement',
+          position: 1,
+          name: 'Home',
+          description: 'Official corporate digital platform of TariqTech Limited.',
+          url: 'https://tariqtechlimited.com',
+        },
+        {
+          '@type': 'SiteNavigationElement',
+          position: 2,
+          name: 'About Us',
+          description: 'Our story, mission, and leadership in software development and Big Data.',
+          url: 'https://tariqtechlimited.com/about',
+        },
+        {
+          '@type': 'SiteNavigationElement',
+          position: 3,
+          name: 'Our Projects',
+          description: 'Case studies, Admissions CRMs, and custom software systems.',
+          url: 'https://tariqtechlimited.com/projects',
+        },
+        {
+          '@type': 'SiteNavigationElement',
+          position: 4,
+          name: 'Blog & Insights',
+          description: 'Expert technology insights, tutorials, and engineering case studies.',
+          url: 'https://tariqtechlimited.com/blog',
+        },
+        {
+          '@type': 'SiteNavigationElement',
+          position: 5,
+          name: 'Contact Us',
+          description: 'Connect with TariqTech Limited in Dar es Salaam for project consultations.',
+          url: 'https://tariqtechlimited.com/contact',
+        },
+      ],
+    },
+  ],
+};
+
 export default function RootLayout({
   children,
 }: {
@@ -87,11 +171,18 @@ export default function RootLayout({
       lang="en"
       className={`${plusJakarta.variable} ${inter.variable} scroll-smooth`}
     >
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+        />
+      </head>
       <body className="min-h-screen flex flex-col font-sans bg-[#dfeff2] dark:bg-[#0d1e1c] text-[#1a3a35] dark:text-[#e3f5f3] selection:bg-[#2a8a85] selection:text-white transition-colors duration-300">
         <ThemeProvider>
           <LanguageProvider>
             {children}
             <FloatingWidgets />
+            <CookieConsent />
             <GoogleTranslateScript />
           </LanguageProvider>
         </ThemeProvider>

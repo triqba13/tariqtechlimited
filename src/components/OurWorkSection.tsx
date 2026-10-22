@@ -15,7 +15,7 @@ export default function OurWorkSection() {
       title: 'Mtishbischolar',
       category: 'Client Project',
       desc: 'Modern academic scholarship and student opportunity discovery platform connecting learners to global education programs.',
-      image: '/pictures/mtishb.jpg',
+      image: '/pictures/projects/mtishbischolar/mtishbi (1).png',
       tags: ['Web Platform', 'Scholarships', 'Next.js', 'PostgreSQL'],
     },
     {
@@ -88,7 +88,7 @@ export default function OurWorkSection() {
           {featuredProjects.map((project) => (
             <Link
               key={project.id}
-              href="/contact"
+              href={`/projects/${project.id}`}
               className="group relative h-[330px] sm:h-[360px] rounded-3xl overflow-hidden border border-[#1a3a35]/15 dark:border-white/10 shadow-sm transition-all duration-300 hover:shadow-2xl hover:-translate-y-1.5 block cursor-pointer"
             >
               {/* Background Image */}
@@ -150,14 +150,13 @@ export default function OurWorkSection() {
 
         {/* View All Projects Action Button */}
         <div className="mt-12 sm:mt-14 text-center">
-          <button
-            type="button"
-            onClick={() => setModalOpen(true)}
+          <Link
+            href="/projects"
             className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-[#142d29] hover:bg-[#1a3a35] dark:bg-[#1a3a35] dark:hover:bg-[#234d47] text-white text-sm font-bold shadow-lg shadow-[#142d29]/20 transition-all hover:-translate-y-0.5 cursor-pointer"
           >
             <span>View All Projects</span>
             <ChevronRight className="w-4 h-4" />
-          </button>
+          </Link>
         </div>
 
       </div>
