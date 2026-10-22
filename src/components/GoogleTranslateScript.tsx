@@ -49,6 +49,14 @@ export default function GoogleTranslateScript() {
       if (document.body.style.position && document.body.style.position !== 'static') {
         document.body.style.setProperty('position', 'static', 'important');
       }
+
+      // Ensure any focusable element injected by Google Translate cannot be focused
+      const focusables = document.querySelectorAll<HTMLElement>(
+        '#google_translate_element select, #google_translate_element a, #google_translate_element input, .goog-te-combo'
+      );
+      focusables.forEach((el) => {
+        el.setAttribute('tabindex', '-1');
+      });
     };
 
     const observer = new MutationObserver(() => {
@@ -82,7 +90,9 @@ export default function GoogleTranslateScript() {
         opacity: 0,
         pointerEvents: 'none',
       }}
-      aria-hidden="true"
+      tabIndex={-1}
+      // @ts-ignore inert is supported in React 19 / HTML5
+      inert={true}
     />
   );
 }

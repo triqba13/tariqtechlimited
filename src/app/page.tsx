@@ -25,9 +25,9 @@ export default function Home() {
         <OurWorkSection />
         <FAQSection />
         <ClientsFeedbackSection />
-        <BlogSection />
         <AboutSection />
         <ContactSection />
+        <BlogSection />
       </main>
       <Footer />
     </div>
