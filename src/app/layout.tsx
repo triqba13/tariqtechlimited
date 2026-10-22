@@ -24,6 +24,9 @@ export const metadata: Metadata = {
   description:
     'TariqTech Limited delivers software development, mobile apps, AI automation, custom software, and system integrations for ambitious businesses.',
   metadataBase: new URL('https://tariqtechlimited.com'),
+  alternates: {
+    canonical: '/',
+  },
   verification: {
     google: '-W3C6WpDow33OiQZuAiN9vjJXaWTSGq9xv9FHH1f1hQ',
   },
