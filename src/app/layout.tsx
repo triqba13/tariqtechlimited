@@ -47,6 +47,8 @@ export const metadata: Metadata = {
       { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
       { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
       { url: '/favicon-48x48.png', sizes: '48x48', type: 'image/png' },
+      { url: '/android-chrome-192x192.png', sizes: '192x192', type: 'image/png' },
+      { url: '/android-chrome-512x512.png', sizes: '512x512', type: 'image/png' },
     ],
     shortcut: '/favicon.ico',
     apple: [
@@ -92,7 +94,7 @@ const organizationSchema = {
       '@id': 'https://www.tariqtechlimited.com/#organization',
       name: 'TariqTech Limited',
       url: 'https://www.tariqtechlimited.com',
-      logo: 'https://www.tariqtechlimited.com/favicon-48x48.png',
+      logo: 'https://www.tariqtechlimited.com/android-chrome-512x512.png',
       image: 'https://www.tariqtechlimited.com/og-image.png',
       description:
         'TariqTech Limited delivers bespoke software development, mobile apps, Big Data Analytics, and AI business automation in Dar es Salaam, Tanzania.',
@@ -137,7 +139,7 @@ const organizationSchema = {
         {
           '@type': 'SiteNavigationElement',
           position: 2,
-          name: 'About Us',
+          name: 'About',
           description: 'Our story, mission, and leadership in software development and Big Data.',
           url: 'https://www.tariqtechlimited.com/about',
         },

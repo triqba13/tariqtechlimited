@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import AboutClient from './AboutClient';
 
 export const metadata: Metadata = {
-  title: 'About Us | TariqTech Limited: Engineering Scalable Digital Products',
+  title: 'About | TariqTech Limited: Engineering Scalable Digital Products',
   description:
     'Meet Tariq and discover how TariqTech Limited helps ambitious businesses across East Africa transform operational challenges into streamlined, intelligent, and scalable digital solutions.',
   keywords: [
@@ -15,20 +15,20 @@ export const metadata: Metadata = {
     'Software Engineering Company East Africa',
   ],
   alternates: {
-    canonical: 'https://tariqtechlimited.com/about',
+    canonical: 'https://www.tariqtechlimited.com/about',
   },
   openGraph: {
-    title: 'About Us | TariqTech Limited: We Build Digital Solutions That Matter',
+    title: 'About | TariqTech Limited: We Build Digital Solutions That Matter',
     description:
       'Learn about our engineering philosophy, our focus on Big Data Analytics and AI automation, and our mission to empower African enterprises.',
-    url: 'https://tariqtechlimited.com/about',
+    url: 'https://www.tariqtechlimited.com/about',
     siteName: 'TariqTech Limited',
     type: 'profile',
     images: ['/pictures/me.JPEG'],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'About Us | TariqTech Limited',
+    title: 'About | TariqTech Limited',
     description:
       'Discover our software engineering ethos, leadership in Big Data Analytics, and digital solutions for African businesses.',
     images: ['/pictures/me.JPEG'],
