@@ -3,7 +3,7 @@ import { PROJECTS } from '@/lib/projectsData';
 import { BLOG_POSTS } from '@/lib/blogsData';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://tariqtechlimited.com';
+  const baseUrl = 'https://www.tariqtechlimited.com';
 
   const staticRoutes: MetadataRoute.Sitemap = [
     {

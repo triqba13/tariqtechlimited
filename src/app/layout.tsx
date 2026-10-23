@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   title: 'TariqTech Limited | Digital Solutions That Create Real Impact',
   description:
     'TariqTech Limited delivers software development, mobile apps, AI automation, custom software, and system integrations for ambitious businesses.',
-  metadataBase: new URL('https://tariqtechlimited.com'),
+  metadataBase: new URL('https://www.tariqtechlimited.com'),
   alternates: {
     canonical: '/',
   },
@@ -58,7 +58,7 @@ export const metadata: Metadata = {
     title: 'TariqTech Limited | Digital Solutions That Create Real Impact',
     description:
       'We help businesses transform ideas into reliable digital products through software development, AI solutions, and system integrations.',
-    url: 'https://tariqtechlimited.com',
+    url: 'https://www.tariqtechlimited.com',
     siteName: 'TariqTech Limited',
     images: [
       {
@@ -89,11 +89,11 @@ const organizationSchema = {
   '@graph': [
     {
       '@type': 'Organization',
-      '@id': 'https://tariqtechlimited.com/#organization',
+      '@id': 'https://www.tariqtechlimited.com/#organization',
       name: 'TariqTech Limited',
-      url: 'https://tariqtechlimited.com',
-      logo: 'https://tariqtechlimited.com/favicon-48x48.png',
-      image: 'https://tariqtechlimited.com/og-image.png',
+      url: 'https://www.tariqtechlimited.com',
+      logo: 'https://www.tariqtechlimited.com/favicon-48x48.png',
+      image: 'https://www.tariqtechlimited.com/og-image.png',
       description:
         'TariqTech Limited delivers bespoke software development, mobile apps, Big Data Analytics, and AI business automation in Dar es Salaam, Tanzania.',
       telephone: '+255744588248',
@@ -111,15 +111,15 @@ const organizationSchema = {
     },
     {
       '@type': 'WebSite',
-      '@id': 'https://tariqtechlimited.com/#website',
-      url: 'https://tariqtechlimited.com',
+      '@id': 'https://www.tariqtechlimited.com/#website',
+      url: 'https://www.tariqtechlimited.com',
       name: 'TariqTech Limited',
       publisher: {
-        '@id': 'https://tariqtechlimited.com/#organization',
+        '@id': 'https://www.tariqtechlimited.com/#organization',
       },
       potentialAction: {
         '@type': 'SearchAction',
-        target: 'https://tariqtechlimited.com/projects?search={search_term_string}',
+        target: 'https://www.tariqtechlimited.com/projects?search={search_term_string}',
         'query-input': 'required name=search_term_string',
       },
     },
@@ -132,35 +132,35 @@ const organizationSchema = {
           position: 1,
           name: 'Home',
           description: 'Official corporate digital platform of TariqTech Limited.',
-          url: 'https://tariqtechlimited.com',
+          url: 'https://www.tariqtechlimited.com',
         },
         {
           '@type': 'SiteNavigationElement',
           position: 2,
           name: 'About Us',
           description: 'Our story, mission, and leadership in software development and Big Data.',
-          url: 'https://tariqtechlimited.com/about',
+          url: 'https://www.tariqtechlimited.com/about',
         },
         {
           '@type': 'SiteNavigationElement',
           position: 3,
           name: 'Our Projects',
           description: 'Case studies, Admissions CRMs, and custom software systems.',
-          url: 'https://tariqtechlimited.com/projects',
+          url: 'https://www.tariqtechlimited.com/projects',
         },
         {
           '@type': 'SiteNavigationElement',
           position: 4,
           name: 'Blog & Insights',
           description: 'Expert technology insights, tutorials, and engineering case studies.',
-          url: 'https://tariqtechlimited.com/blog',
+          url: 'https://www.tariqtechlimited.com/blog',
         },
         {
           '@type': 'SiteNavigationElement',
           position: 5,
           name: 'Contact Us',
           description: 'Connect with TariqTech Limited in Dar es Salaam for project consultations.',
-          url: 'https://tariqtechlimited.com/contact',
+          url: 'https://www.tariqtechlimited.com/contact',
         },
       ],
     },

@@ -9,6 +9,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ['/api/'],
       },
     ],
-    sitemap: 'https://tariqtechlimited.com/sitemap.xml',
+    sitemap: 'https://www.tariqtechlimited.com/sitemap.xml',
   };
 }
