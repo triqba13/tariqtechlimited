@@ -1,10 +1,13 @@
 import { Resend } from 'resend';
 import { ContactInquiry } from './supabase';
 
-const resendApiKey = process.env.RESEND_API_KEY;
-const resend = resendApiKey ? new Resend(resendApiKey) : null;
+function getResendClient(): Resend | null {
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) return null;
+  return new Resend(apiKey);
+}
 
-const FROM_EMAIL = process.env.RESEND_FROM_EMAIL || 'Tariq Hamza | TariqTech Limited <noreply@tariqtechlimited.com>';
+const FROM_EMAIL = process.env.RESEND_FROM_EMAIL || 'TariqTech Limited <noreply@tariqtechlimited.com>';
 const ADMIN_EMAIL = process.env.ADMIN_NOTIFICATION_EMAIL || 'team@tariqtechlimited.com';
 
 /**
@@ -244,12 +247,16 @@ function buildAdminNotificationHtml(inquiry: ContactInquiry): string {
  * Sends both confirmation email to client and alert to internal team via Resend.
  */
 export async function sendInquiryEmails(inquiry: ContactInquiry) {
+  const resend = getResendClient();
+
   if (!resend) {
     console.info('[Email Notice]: RESEND_API_KEY is not configured yet. Set RESEND_API_KEY in .env.local to activate live delivery.');
     return { success: true, simulated: true };
   }
 
   try {
+    console.info(`[Email Dispatch]: Sending inquiry confirmation for ${inquiry.full_name} to ${inquiry.work_email} and admin ${ADMIN_EMAIL}...`);
+
     // 1. Send confirmation email to client (matching Kepha14 reference layout)
     const clientPromise = resend.emails.send({
       from: FROM_EMAIL,
@@ -267,6 +274,18 @@ export async function sendInquiryEmails(inquiry: ContactInquiry) {
     });
 
     const [clientRes, adminRes] = await Promise.allSettled([clientPromise, adminPromise]);
+
+    if (clientRes.status === 'fulfilled') {
+      console.info(`[Email Success]: Client confirmation sent, ID:`, clientRes.value);
+    } else {
+      console.error(`[Email Error]: Failed to send client confirmation:`, clientRes.reason);
+    }
+
+    if (adminRes.status === 'fulfilled') {
+      console.info(`[Email Success]: Admin notification sent, ID:`, adminRes.value);
+    } else {
+      console.error(`[Email Error]: Failed to send admin notification:`, adminRes.reason);
+    }
 
     return {
       success: true,

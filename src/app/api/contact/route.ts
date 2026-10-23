@@ -98,8 +98,8 @@ export async function POST(request: Request) {
         );
       }
 
-      // Send client confirmation and admin alert emails asynchronously
-      void sendInquiryEmails(inquiryRecord);
+      // Send client confirmation and admin alert emails
+      await sendInquiryEmails(inquiryRecord);
 
       return NextResponse.json({
         success: true,
@@ -109,7 +109,7 @@ export async function POST(request: Request) {
     }
 
     // Local / development fallback
-    void sendInquiryEmails(inquiryRecord);
+    await sendInquiryEmails(inquiryRecord);
 
     return NextResponse.json({
       success: true,
