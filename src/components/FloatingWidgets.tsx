@@ -25,15 +25,19 @@ export default function FloatingWidgets() {
   const [showScrollTop, setShowScrollTop] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  // Monitor scroll for back-to-top button
+  // Monitor scroll for back-to-top button (throttled with requestAnimationFrame)
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      if (window.scrollY > 250) {
-        setShowScrollTop(true);
-      } else {
-        setShowScrollTop(false);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setShowScrollTop(window.scrollY > 250);
+          ticking = false;
+        });
+        ticking = true;
       }
     };
+    handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);

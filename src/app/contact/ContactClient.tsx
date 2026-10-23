@@ -20,7 +20,9 @@ import {
   Code2,
   Smartphone,
   Bot,
-  Loader2
+  Loader2,
+  RotateCcw,
+  X
 } from 'lucide-react';
 import { saveContactInquiry } from '@/lib/supabase';
 
@@ -63,6 +65,17 @@ export default function ContactClient() {
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const [showToast, setShowToast] = useState<boolean>(false);
+
+  // Auto-dismiss top-right toast after 10 seconds
+  useEffect(() => {
+    if (showToast) {
+      const timer = setTimeout(() => {
+        setShowToast(false);
+      }, 10000);
+      return () => clearTimeout(timer);
+    }
+  }, [showToast]);
 
   // Form State
   const [selectedServices, setSelectedServices] = useState<string[]>([]);
@@ -139,6 +152,35 @@ export default function ContactClient() {
     if (step > 1) setStep(step - 1);
   };
 
+  const handleStartNew = () => {
+    setStep(1);
+    setSelectedServices([]);
+    setProblemStatement('');
+    setProjectDescription('');
+    setExpectedOutcome('');
+    setExistingTools('');
+    setBudget('');
+    setTimeline('');
+    setBudgetApproved('');
+    setDecisionMaker('');
+    setFullName('');
+    setWorkEmail('');
+    setCompanyName('');
+    setWhatsappNumber('');
+    setContactChannel('WhatsApp');
+    setAgreedToTerms(false);
+    setSubmitError(null);
+    setSubmitted(false);
+    setShowToast(false);
+
+    if (typeof window !== 'undefined') {
+      const formCard = document.getElementById('inquiry-form');
+      if (formCard) {
+        formCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!fullName || !workEmail || !whatsappNumber || !agreedToTerms) return;
@@ -165,6 +207,7 @@ export default function ContactClient() {
       });
 
       setSubmitted(true);
+      setShowToast(true);
     } catch (err: unknown) {
       console.error('Contact inquiry save error:', err);
       // Even if network fails, saveContactInquiry has cached to localStorage
@@ -185,6 +228,44 @@ export default function ContactClient() {
 
   return (
     <div className="relative min-h-screen flex flex-col justify-between overflow-x-hidden bg-[#eef7f6]/60 dark:bg-[#071311]">
+      {/* Top-Right Notification Toast */}
+      {showToast && (
+        <aside
+          role="status"
+          aria-live="polite"
+          className="fixed top-6 right-4 sm:right-6 z-50 max-w-sm sm:max-w-md w-[calc(100vw-2rem)] sm:w-auto animate-in slide-in-from-top-4 sm:slide-in-from-right-4 fade-in duration-300 drop-shadow-2xl"
+        >
+          <div className="bg-white/95 dark:bg-[#0c1b18]/95 backdrop-blur-md border border-[#2a8a85]/40 dark:border-[#5fd4ce]/40 rounded-2xl p-4 sm:p-5 flex items-start gap-3.5 shadow-2xl">
+            <div className="w-10 h-10 rounded-xl bg-[#d4edea] dark:bg-[#1a3a35] text-[#2a8a85] dark:text-[#5fd4ce] flex items-center justify-center shrink-0 mt-0.5">
+              <Mail className="w-5 h-5 animate-pulse" />
+            </div>
+            
+            <div className="flex-1 pr-1">
+              <div className="flex items-center gap-2 mb-1">
+                <span className="font-extrabold text-sm text-[#1a3a35] dark:text-white">
+                  Inquiry Received!
+                </span>
+                <span className="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
+              </div>
+              <p className="text-xs text-[#42645f] dark:text-[#94a3b8] leading-relaxed">
+                Your inquiry has been received. Please check your email account{' '}
+                {workEmail ? <span className="font-semibold text-[#1a3a35] dark:text-white">({workEmail})</span> : ''}{' '}
+                for confirmation details.
+              </p>
+            </div>
+
+            <button
+              type="button"
+              onClick={() => setShowToast(false)}
+              className="w-7 h-7 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-white flex items-center justify-center hover:bg-slate-100 dark:hover:bg-white/10 transition-colors shrink-0 cursor-pointer"
+              aria-label="Close notification"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
+        </aside>
+      )}
+
       {/* Top Static Grid Background (Header area only, matching reference screenshot 2) */}
       <div 
         aria-hidden="true"
@@ -275,23 +356,15 @@ export default function ContactClient() {
                   Thank you, <span className="font-bold text-[#1a3a35] dark:text-white">{fullName}</span>. Our technical team has received your project details and will review them promptly within 24 hours.
                 </p>
                 
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                  <a
-                    href="https://wa.me/255744588248"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-[#25D366] hover:bg-[#20b858] text-white font-bold text-sm shadow-md transition-all hover:-translate-y-0.5"
+                <div className="flex items-center justify-center">
+                  <button
+                    type="button"
+                    onClick={handleStartNew}
+                    className="inline-flex items-center gap-2.5 px-9 py-4 rounded-full bg-[#2a8a85] hover:bg-[#237571] dark:bg-[#5fd4ce] dark:hover:bg-[#4ec2bc] text-white dark:text-[#0c1614] font-bold text-base shadow-xl transition-all duration-200 hover:-translate-y-0.5 cursor-pointer"
                   >
-                    <MessageCircle className="w-4 h-4" />
-                    <span>Chat on WhatsApp Directly</span>
-                  </a>
-
-                  <Link
-                    href="/"
-                    className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-[#1a3a35] dark:bg-white text-white dark:text-[#0c1614] font-bold text-sm shadow-md transition-all hover:-translate-y-0.5"
-                  >
-                    <span>Return to Homepage</span>
-                  </Link>
+                    <RotateCcw className="w-4 h-4" />
+                    <span>Start New</span>
+                  </button>
                 </div>
               </div>
             ) : (

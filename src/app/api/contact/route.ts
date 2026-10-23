@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { supabase, isSupabaseConfigured, ContactInquiry } from '@/lib/supabase';
+import { sendInquiryEmails } from '@/lib/email';
 
 // Email validation helper
 function isValidEmail(email: string): boolean {
@@ -89,6 +90,9 @@ export async function POST(request: Request) {
         );
       }
 
+      // Send client confirmation and admin alert emails asynchronously
+      void sendInquiryEmails(inquiryRecord);
+
       return NextResponse.json({
         success: true,
         referenceId: inquiryId,
@@ -97,6 +101,8 @@ export async function POST(request: Request) {
     }
 
     // Local / development fallback
+    void sendInquiryEmails(inquiryRecord);
+
     return NextResponse.json({
       success: true,
       referenceId: inquiryId,

@@ -175,7 +175,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${plusJakarta.variable} ${inter.variable} scroll-smooth`}
+      className={`${plusJakarta.variable} ${inter.variable}`}
     >
       <head>
         <script

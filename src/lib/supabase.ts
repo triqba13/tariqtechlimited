@@ -11,23 +11,6 @@ export const isSupabaseConfigured = Boolean(
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
-export interface ConsultationBooking {
-  id?: string;
-  created_at?: string;
-  full_name: string;
-  email: string;
-  phone: string;
-  country: string;
-  preferred_channel: 'SMS' | 'WhatsApp' | 'Email';
-  service_of_interest: string;
-  consultation_format: 'online' | 'inperson';
-  brief_requirements: string;
-  preferred_date?: string;
-  consultation_fee: number;
-  currency: string;
-  status: 'pending_payment_instructions' | 'payment_verified' | 'completed' | 'cancelled';
-}
-
 export interface ContactInquiry {
   id?: string;
   created_at?: string;
@@ -46,45 +29,6 @@ export interface ContactInquiry {
   budget_approved?: string;
   decision_maker?: string;
   status?: string;
-}
-
-/**
- * Saves a consultation booking securely.
- * Pre-assigns UUID to avoid .select() queries that conflict with public read restriction RLS policies.
- */
-export async function saveConsultationBooking(booking: Omit<ConsultationBooking, 'id' | 'created_at' | 'consultation_fee' | 'currency' | 'status'>) {
-  const generatedId = crypto.randomUUID();
-  const payload: ConsultationBooking = {
-    ...booking,
-    id: generatedId,
-    consultation_fee: 30000,
-    currency: 'TZS',
-    status: 'pending_payment_instructions',
-    created_at: new Date().toISOString(),
-  };
-
-  if (isSupabaseConfigured) {
-    const { error } = await supabase
-      .from('consultation_bookings')
-      .insert([payload]);
-
-    if (error) {
-      console.error('Supabase booking error:', error);
-      throw error;
-    }
-    return { success: true, data: [payload], method: 'supabase' };
-  }
-
-  // Graceful fallback for local development / testing without live keys
-  try {
-    const existing = JSON.parse(localStorage.getItem('tariqtech_bookings') || '[]');
-    existing.unshift(payload);
-    localStorage.setItem('tariqtech_bookings', JSON.stringify(existing));
-    return { success: true, data: [payload], method: 'local_storage' };
-  } catch (err) {
-    console.warn('Storage fallback warning:', err);
-    return { success: true, data: [payload], method: 'memory' };
-  }
 }
 
 /**

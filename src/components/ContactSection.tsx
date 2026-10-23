@@ -2,7 +2,8 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { ArrowRight, Sparkles, X, Send, CheckCircle2, MessageSquare } from 'lucide-react';
+import { ArrowRight, Sparkles, X, Send, CheckCircle2, MessageSquare, Loader2 } from 'lucide-react';
+import { saveContactInquiry } from '@/lib/supabase';
 
 export default function ContactSection() {
   const [modalOpen, setModalOpen] = useState(false);
@@ -14,6 +15,7 @@ export default function ContactSection() {
   const [phone, setPhone] = useState('');
   const [message, setMessage] = useState('');
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
   const handleOpenModal = (type: 'assessment' | 'strategy') => {
     setModalType(type);
@@ -21,31 +23,31 @@ export default function ContactSection() {
     setModalOpen(true);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name || !email) return;
 
+    setSubmitting(true);
     try {
-      const existing = JSON.parse(localStorage.getItem('tariqtech_inquiries') || '[]');
-      existing.unshift({
-        id: 'INQ-' + Date.now(),
-        type: modalType,
-        name,
-        email,
-        phone,
-        message,
-        created_at: new Date().toISOString(),
+      await saveContactInquiry({
+        full_name: name,
+        work_email: email,
+        whatsapp_number: phone || '+255744588248',
+        problem_statement: `[Modal ${modalType.toUpperCase()}]: ${message}`,
+        contact_channel: 'WhatsApp',
       });
-      localStorage.setItem('tariqtech_inquiries', JSON.stringify(existing));
-    } catch (err) {
-      console.warn(err);
-    }
 
-    setSubmitted(true);
-    setName('');
-    setEmail('');
-    setPhone('');
-    setMessage('');
+      setSubmitted(true);
+      setName('');
+      setEmail('');
+      setPhone('');
+      setMessage('');
+    } catch (err) {
+      console.warn('Modal submit error:', err);
+      setSubmitted(true);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -256,10 +258,20 @@ export default function ContactSection() {
                   <div className="flex items-center gap-3 pt-2">
                     <button
                       type="submit"
-                      className="flex-1 inline-flex items-center justify-center gap-2 py-3 rounded-full bg-[#142d29] hover:bg-[#1a3a35] dark:bg-[#289b83] dark:hover:bg-[#34aa92] text-white font-bold text-sm shadow-md transition-all cursor-pointer"
+                      disabled={submitting}
+                      className="flex-1 inline-flex items-center justify-center gap-2 py-3 rounded-full bg-[#142d29] hover:bg-[#1a3a35] dark:bg-[#289b83] dark:hover:bg-[#34aa92] text-white font-bold text-sm shadow-md transition-all cursor-pointer disabled:opacity-50"
                     >
-                      <Send className="w-4 h-4" />
-                      <span>Submit Request</span>
+                      {submitting ? (
+                        <>
+                          <Loader2 className="w-4 h-4 animate-spin" />
+                          <span>Submitting...</span>
+                        </>
+                      ) : (
+                        <>
+                          <Send className="w-4 h-4" />
+                          <span>Submit Request</span>
+                        </>
+                      )}
                     </button>
                     
                     <a

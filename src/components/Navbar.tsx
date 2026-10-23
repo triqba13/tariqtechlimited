@@ -29,13 +29,16 @@ export default function Navbar() {
   const moreTopRef = useRef<HTMLLIElement>(null);
   const morePillRef = useRef<HTMLLIElement>(null);
 
-  // Monitor scroll with threshold
+  // Monitor scroll with threshold (throttled with requestAnimationFrame)
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      if (window.scrollY > 40) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setScrolled(window.scrollY > 40);
+          ticking = false;
+        });
+        ticking = true;
       }
     };
     handleScroll();
