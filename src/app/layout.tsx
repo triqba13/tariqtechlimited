@@ -106,7 +106,7 @@ const organizationSchema = {
       sameAs: [
         'https://github.com',
         'https://linkedin.com',
-        'https://instagram.com',
+        'https://www.instagram.com/tariqtech.limited/',
       ],
     },
     {

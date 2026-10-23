@@ -45,7 +45,7 @@ export default function Footer() {
             {/* Social Icons: Instagram, LinkedIn, GitHub */}
             <div className="flex items-center gap-3.5">
               <a
-                href="https://instagram.com"
+                href="https://www.instagram.com/tariqtech.limited/"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"

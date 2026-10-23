@@ -28,14 +28,35 @@ export interface ConsultationBooking {
   status: 'pending_payment_instructions' | 'payment_verified' | 'completed' | 'cancelled';
 }
 
+export interface ContactInquiry {
+  id?: string;
+  created_at?: string;
+  full_name: string;
+  work_email: string;
+  whatsapp_number: string;
+  company_name?: string;
+  contact_channel?: string;
+  services?: string[];
+  problem_statement?: string;
+  project_description?: string;
+  expected_outcome?: string;
+  existing_tools?: string;
+  budget?: string;
+  timeline?: string;
+  budget_approved?: string;
+  decision_maker?: string;
+  status?: string;
+}
+
 /**
  * Saves a consultation booking securely.
- * If Supabase is connected with credentials, writes to Supabase.
- * Otherwise, persists safely to client/local storage and logs for immediate verification.
+ * Pre-assigns UUID to avoid .select() queries that conflict with public read restriction RLS policies.
  */
 export async function saveConsultationBooking(booking: Omit<ConsultationBooking, 'id' | 'created_at' | 'consultation_fee' | 'currency' | 'status'>) {
+  const generatedId = crypto.randomUUID();
   const payload: ConsultationBooking = {
     ...booking,
+    id: generatedId,
     consultation_fee: 30000,
     currency: 'TZS',
     status: 'pending_payment_instructions',
@@ -43,27 +64,79 @@ export async function saveConsultationBooking(booking: Omit<ConsultationBooking,
   };
 
   if (isSupabaseConfigured) {
-    const { data, error } = await supabase
+    const { error } = await supabase
       .from('consultation_bookings')
-      .insert([payload])
-      .select();
+      .insert([payload]);
 
     if (error) {
       console.error('Supabase booking error:', error);
       throw error;
     }
-    return { success: true, data, method: 'supabase' };
+    return { success: true, data: [payload], method: 'supabase' };
   }
 
   // Graceful fallback for local development / testing without live keys
   try {
     const existing = JSON.parse(localStorage.getItem('tariqtech_bookings') || '[]');
-    const newEntry = { ...payload, id: 'TT-' + Date.now().toString(36).toUpperCase() };
-    existing.unshift(newEntry);
+    existing.unshift(payload);
     localStorage.setItem('tariqtech_bookings', JSON.stringify(existing));
-    return { success: true, data: [newEntry], method: 'local_storage' };
+    return { success: true, data: [payload], method: 'local_storage' };
   } catch (err) {
     console.warn('Storage fallback warning:', err);
     return { success: true, data: [payload], method: 'memory' };
   }
+}
+
+/**
+ * Saves a contact/project inquiry securely to Supabase.
+ * Uses API endpoint with fallback to direct Supabase insert, plus localStorage backup.
+ */
+export async function saveContactInquiry(inquiry: Omit<ContactInquiry, 'id' | 'created_at' | 'status'>) {
+  const generatedId = crypto.randomUUID();
+  const payload: ContactInquiry = {
+    ...inquiry,
+    id: generatedId,
+    created_at: new Date().toISOString(),
+    status: 'new',
+  };
+
+  // Keep a local copy in browser as backup
+  try {
+    const existing = JSON.parse(localStorage.getItem('tariqtech_inquiries') || '[]');
+    existing.unshift(payload);
+    localStorage.setItem('tariqtech_inquiries', JSON.stringify(existing));
+  } catch (err) {
+    console.warn('Local storage inquiry warning:', err);
+  }
+
+  // 1. Primary path: Call the secure server-side API route
+  try {
+    const res = await fetch('/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+
+    if (res.ok) {
+      const data = await res.json();
+      return { success: true, referenceId: data.referenceId || generatedId, method: 'api' };
+    }
+  } catch (apiErr) {
+    console.warn('API contact route unreachable, trying direct Supabase client fallback:', apiErr);
+  }
+
+  // 2. Direct Supabase insertion fallback
+  if (isSupabaseConfigured) {
+    const { error } = await supabase
+      .from('contact_inquiries')
+      .insert([payload]);
+
+    if (error) {
+      console.error('Supabase contact direct insert error:', error);
+      throw error;
+    }
+    return { success: true, referenceId: generatedId, method: 'supabase' };
+  }
+
+  return { success: true, referenceId: generatedId, method: 'local_storage' };
 }

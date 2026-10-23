@@ -19,8 +19,10 @@ import {
   Layers,
   Code2,
   Smartphone,
-  Bot
+  Bot,
+  Loader2
 } from 'lucide-react';
+import { saveContactInquiry } from '@/lib/supabase';
 
 interface ServiceItem {
   id: string;
@@ -59,6 +61,8 @@ const AVAILABLE_SERVICES: ServiceItem[] = [
 export default function ContactClient() {
   const [step, setStep] = useState<number>(1);
   const [submitted, setSubmitted] = useState<boolean>(false);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   // Form State
   const [selectedServices, setSelectedServices] = useState<string[]>([]);
@@ -135,38 +139,39 @@ export default function ContactClient() {
     if (step > 1) setStep(step - 1);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!fullName || !workEmail || !whatsappNumber || !agreedToTerms) return;
 
-    const payload = {
-      id: 'INQ-' + Date.now(),
-      created_at: new Date().toISOString(),
-      services: selectedServices,
-      problemStatement,
-      projectDescription,
-      expectedOutcome,
-      existingTools,
-      budget,
-      timeline,
-      budgetApproved,
-      decisionMaker,
-      fullName,
-      workEmail,
-      companyName,
-      whatsappNumber,
-      contactChannel,
-    };
+    setIsSubmitting(true);
+    setSubmitError(null);
 
     try {
-      const existing = JSON.parse(localStorage.getItem('tariqtech_inquiries') || '[]');
-      existing.unshift(payload);
-      localStorage.setItem('tariqtech_inquiries', JSON.stringify(existing));
-    } catch (err) {
-      console.warn(err);
-    }
+      await saveContactInquiry({
+        full_name: fullName,
+        work_email: workEmail,
+        whatsapp_number: whatsappNumber,
+        company_name: companyName || undefined,
+        contact_channel: contactChannel,
+        services: selectedServices,
+        problem_statement: problemStatement || undefined,
+        project_description: projectDescription || undefined,
+        expected_outcome: expectedOutcome || undefined,
+        existing_tools: existingTools || undefined,
+        budget: budget || undefined,
+        timeline: timeline || undefined,
+        budget_approved: budgetApproved || undefined,
+        decision_maker: decisionMaker || undefined,
+      });
 
-    setSubmitted(true);
+      setSubmitted(true);
+    } catch (err: unknown) {
+      console.error('Contact inquiry save error:', err);
+      // Even if network fails, saveContactInquiry has cached to localStorage
+      setSubmitError('Unable to sync online right now. Your details have been saved locally, or you can contact us directly on WhatsApp.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   // Helper labels for review box
@@ -702,11 +707,18 @@ export default function ContactClient() {
                       </div>
                     </div>
 
+                    {submitError && (
+                      <div className="mb-4 p-4 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-800 dark:text-amber-200 text-xs sm:text-sm">
+                        {submitError}
+                      </div>
+                    )}
+
                     <div className="flex items-center justify-between pt-6">
                       <button
                         type="button"
                         onClick={handleBack}
-                        className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-slate-100 hover:bg-slate-200 dark:bg-white/10 dark:hover:bg-white/20 text-[#1a3a35] dark:text-white font-bold text-sm transition-colors cursor-pointer"
+                        disabled={isSubmitting}
+                        className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-slate-100 hover:bg-slate-200 dark:bg-white/10 dark:hover:bg-white/20 text-[#1a3a35] dark:text-white font-bold text-sm transition-colors cursor-pointer disabled:opacity-50"
                       >
                         <ArrowLeft className="w-4 h-4" />
                         <span>Back</span>
@@ -714,11 +726,20 @@ export default function ContactClient() {
 
                       <button
                         type="submit"
-                        disabled={!fullName || !workEmail || !whatsappNumber || !agreedToTerms}
+                        disabled={!fullName || !workEmail || !whatsappNumber || !agreedToTerms || isSubmitting}
                         className="inline-flex items-center gap-2 px-10 py-4 rounded-full bg-[#2a8a85] hover:bg-[#237571] dark:bg-[#5fd4ce] dark:hover:bg-[#4ec2bc] text-white dark:text-[#0c1614] font-bold text-base shadow-xl transition-all hover:-translate-y-0.5 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                       >
-                        <span>Submit Inquiry</span>
-                        <Send className="w-4 h-4" />
+                        {isSubmitting ? (
+                          <>
+                            <Loader2 className="w-4 h-4 animate-spin" />
+                            <span>Submitting...</span>
+                          </>
+                        ) : (
+                          <>
+                            <span>Submit Inquiry</span>
+                            <Send className="w-4 h-4" />
+                          </>
+                        )}
                       </button>
                     </div>
                   </div>

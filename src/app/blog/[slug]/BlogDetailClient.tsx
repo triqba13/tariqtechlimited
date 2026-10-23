@@ -167,7 +167,7 @@ export default function BlogDetailClient({ post }: { post: BlogPost }) {
 
                   {/* Instagram */}
                   <a
-                    href="https://instagram.com"
+                    href="https://www.instagram.com/tariqtech.limited/"
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label="Tariq on Instagram"

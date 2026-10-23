@@ -41,10 +41,10 @@ export async function POST(request: Request) {
     };
 
     if (isSupabaseConfigured) {
-      const { data, error } = await supabase
+      const bookingId = crypto.randomUUID();
+      const { error } = await supabase
         .from('consultation_bookings')
-        .insert([bookingRecord])
-        .select();
+        .insert([{ ...bookingRecord, id: bookingId }]);
 
       if (error) {
         console.error('Database insertion error:', error);
@@ -56,7 +56,7 @@ export async function POST(request: Request) {
 
       return NextResponse.json({
         success: true,
-        referenceId: data?.[0]?.id,
+        referenceId: bookingId,
         message: 'Booking stored in Supabase successfully.',
       });
     }
