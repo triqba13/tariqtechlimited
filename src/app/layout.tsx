@@ -97,7 +97,7 @@ const organizationSchema = {
       description:
         'TariqTech Limited delivers bespoke software development, mobile apps, Big Data Analytics, and AI business automation in Dar es Salaam, Tanzania.',
       telephone: '+255744588248',
-      email: 'support@tariqtechlimited.com',
+      email: 'team@tariqtechlimited.com',
       address: {
         '@type': 'PostalAddress',
         addressLocality: 'Dar es Salaam',

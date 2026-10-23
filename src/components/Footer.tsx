@@ -170,13 +170,13 @@ export default function Footer() {
 
             {/* Email Support Link */}
             <a
-              href="mailto:support@tariqtechlimited.com"
+              href="mailto:team@tariqtechlimited.com"
               className="inline-flex items-center gap-2.5 hover:text-[#5fd4ce] transition-colors group"
             >
               <span className="w-7 h-7 rounded-full bg-[#5fd4ce]/20 text-[#5fd4ce] flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
                 <Mail className="w-4 h-4" />
               </span>
-              <span className="font-semibold text-sm sm:text-base">support@tariqtechlimited.com</span>
+              <span className="font-semibold text-sm sm:text-base">team@tariqtechlimited.com</span>
             </a>
 
           </div>

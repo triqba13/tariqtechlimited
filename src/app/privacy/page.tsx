@@ -189,7 +189,7 @@ export default function PrivacyPolicyPage() {
                   <li><strong>Right to Withdraw Consent:</strong> You can revoke consent for non-essential communications or cookies at any time.</li>
                 </ul>
                 <p>
-                  To exercise any of these rights, email our team directly at <a href="mailto:support@tariqtechlimited.com" className="text-[#2a8a85] dark:text-[#5fd4ce] font-semibold underline">support@tariqtechlimited.com</a>.
+                  To exercise any of these rights, email our team directly at <a href="mailto:team@tariqtechlimited.com" className="text-[#2a8a85] dark:text-[#5fd4ce] font-semibold underline">team@tariqtechlimited.com</a>.
                 </p>
               </div>
             </section>
@@ -206,7 +206,7 @@ export default function PrivacyPolicyPage() {
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
                 <div className="flex items-center gap-2.5 text-[#d4edea]">
                   <Mail className="w-4 h-4 text-[#5fd4ce] shrink-0" />
-                  <a href="mailto:support@tariqtechlimited.com" className="hover:text-white underline">support@tariqtechlimited.com</a>
+                  <a href="mailto:team@tariqtechlimited.com" className="hover:text-white underline">team@tariqtechlimited.com</a>
                 </div>
                 <div className="flex items-center gap-2.5 text-[#d4edea]">
                   <Phone className="w-4 h-4 text-[#5fd4ce] shrink-0" />

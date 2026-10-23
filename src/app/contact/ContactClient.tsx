@@ -1030,7 +1030,7 @@ export default function ContactClient() {
               
               {/* Card 1: Email */}
               <a
-                href="mailto:support@tariqtechlimited.com"
+                href="mailto:team@tariqtechlimited.com"
                 className="p-6 rounded-3xl bg-white/80 dark:bg-[#102420]/80 backdrop-blur-md border border-[#1a3a35]/15 dark:border-white/10 hover:border-[#2a8a85] dark:hover:border-[#5fd4ce] shadow-sm hover:shadow-md transition-all group"
               >
                 <div className="w-12 h-12 rounded-2xl bg-[#d4edea] dark:bg-white/10 text-[#2a8a85] dark:text-[#5fd4ce] flex items-center justify-center mb-4 group-hover:scale-105 transition-transform">
@@ -1040,7 +1040,7 @@ export default function ContactClient() {
                   Email
                 </h3>
                 <p className="text-sm font-semibold text-[#2a8a85] dark:text-[#5fd4ce] truncate mb-1">
-                  support@tariqtechlimited.com
+                  team@tariqtechlimited.com
                 </p>
                 <p className="text-xs text-[#42645f] dark:text-[#94a3b8]">
                   For general inquiries and projects

@@ -5,6 +5,9 @@
       "args": [
         "https://mcp.icons8.com/mcp/"
       ]
+    },
+    "resend": {
+      "serverUrl": "https://mcp.resend.com/mcp"
     }
   }
 }

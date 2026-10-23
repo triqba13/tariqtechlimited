@@ -178,7 +178,7 @@ export default function BlogDetailClient({ post }: { post: BlogPost }) {
 
                   {/* Direct Email */}
                   <a
-                    href="mailto:support@tariqtechlimited.com"
+                    href="mailto:team@tariqtechlimited.com"
                     aria-label="Email Tariq"
                     className="w-10 h-10 rounded-full bg-white/80 dark:bg-[#151f2e] text-[#1a3a35] dark:text-white flex items-center justify-center border border-[#1a3a35]/10 dark:border-white/10 shadow-sm hover:scale-110 hover:text-[#2a8a85] dark:hover:text-[#5fd4ce] transition-all"
                   >

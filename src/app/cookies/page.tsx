@@ -218,7 +218,7 @@ export default function CookiesPolicyPage() {
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
                 <div className="flex items-center gap-2.5 text-[#d4edea]">
                   <Mail className="w-4 h-4 text-[#5fd4ce] shrink-0" />
-                  <a href="mailto:support@tariqtechlimited.com" className="hover:text-white underline">support@tariqtechlimited.com</a>
+                  <a href="mailto:team@tariqtechlimited.com" className="hover:text-white underline">team@tariqtechlimited.com</a>
                 </div>
                 <div className="flex items-center gap-2.5 text-[#d4edea]">
                   <Phone className="w-4 h-4 text-[#5fd4ce] shrink-0" />

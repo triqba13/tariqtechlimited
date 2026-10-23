@@ -5,7 +5,7 @@ const resendApiKey = process.env.RESEND_API_KEY;
 const resend = resendApiKey ? new Resend(resendApiKey) : null;
 
 const FROM_EMAIL = process.env.RESEND_FROM_EMAIL || 'Tariq Hamza | TariqTech Limited <noreply@tariqtechlimited.com>';
-const ADMIN_EMAIL = process.env.ADMIN_NOTIFICATION_EMAIL || 'support@tariqtechlimited.com';
+const ADMIN_EMAIL = process.env.ADMIN_NOTIFICATION_EMAIL || 'team@tariqtechlimited.com';
 
 /**
  * Builds responsive, clean HTML email matching the exact reference design
