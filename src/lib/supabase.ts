@@ -29,6 +29,10 @@ export interface ContactInquiry {
   budget_approved?: string;
   decision_maker?: string;
   status?: string;
+  meeting_date?: string;
+  meeting_time?: string;
+  meeting_mode?: string;
+  meeting_email?: string;
 }
 
 /**

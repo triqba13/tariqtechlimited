@@ -26,6 +26,10 @@ export async function POST(request: Request) {
       timeline,
       budget_approved,
       decision_maker,
+      meeting_date,
+      meeting_time,
+      meeting_mode,
+      meeting_email,
     } = body;
 
     // Strict validation
@@ -72,6 +76,10 @@ export async function POST(request: Request) {
       timeline: timeline ? String(timeline).trim().slice(0, 100) : undefined,
       budget_approved: budget_approved ? String(budget_approved).trim().slice(0, 100) : undefined,
       decision_maker: decision_maker ? String(decision_maker).trim().slice(0, 100) : undefined,
+      meeting_date: meeting_date ? String(meeting_date).trim().slice(0, 50) : undefined,
+      meeting_time: meeting_time ? String(meeting_time).trim().slice(0, 50) : undefined,
+      meeting_mode: meeting_mode ? String(meeting_mode).trim().slice(0, 50) : 'Google Meet',
+      meeting_email: meeting_email ? String(meeting_email).trim().slice(0, 150) : undefined,
       status: 'new',
     };
 

@@ -22,7 +22,9 @@ import {
   Bot,
   Loader2,
   RotateCcw,
-  X
+  X,
+  Calendar,
+  Video
 } from 'lucide-react';
 import { saveContactInquiry } from '@/lib/supabase';
 
@@ -95,6 +97,13 @@ export default function ContactClient() {
   const [whatsappNumber, setWhatsappNumber] = useState<string>('');
   const [contactChannel, setContactChannel] = useState<string>('WhatsApp');
   const [agreedToTerms, setAgreedToTerms] = useState<boolean>(false);
+
+  // Meeting Scheduling State
+  const [meetingDate, setMeetingDate] = useState<string>('');
+  const [meetingTime, setMeetingTime] = useState<string>('10:00 AM (EAT)');
+  const [meetingMode, setMeetingMode] = useState<string>('Google Meet');
+  const [googleMeetEmailChoice, setGoogleMeetEmailChoice] = useState<'same' | 'different'>('same');
+  const [differentMeetingEmail, setDifferentMeetingEmail] = useState<string>('');
 
   // Compute Dynamic Budget Options based on user's exact specification
   const budgetOptions = useMemo(() => {
@@ -169,6 +178,11 @@ export default function ContactClient() {
     setWhatsappNumber('');
     setContactChannel('WhatsApp');
     setAgreedToTerms(false);
+    setMeetingDate('');
+    setMeetingTime('10:00 AM (EAT)');
+    setMeetingMode('Google Meet');
+    setGoogleMeetEmailChoice('same');
+    setDifferentMeetingEmail('');
     setSubmitError(null);
     setSubmitted(false);
     setShowToast(false);
@@ -185,8 +199,17 @@ export default function ContactClient() {
     e.preventDefault();
     if (!fullName || !workEmail || !whatsappNumber || !agreedToTerms) return;
 
+    if (meetingMode === 'Google Meet' && googleMeetEmailChoice === 'different' && !differentMeetingEmail) {
+      setSubmitError('Please enter your Google Meet email address or select the work email option.');
+      return;
+    }
+
     setIsSubmitting(true);
     setSubmitError(null);
+
+    const effectiveMeetingEmail = meetingMode === 'Google Meet'
+      ? (googleMeetEmailChoice === 'different' ? differentMeetingEmail.trim() : workEmail.trim())
+      : undefined;
 
     try {
       await saveContactInquiry({
@@ -204,6 +227,10 @@ export default function ContactClient() {
         timeline: timeline || undefined,
         budget_approved: budgetApproved || undefined,
         decision_maker: decisionMaker || undefined,
+        meeting_date: meetingDate || undefined,
+        meeting_time: meetingDate ? meetingTime : undefined,
+        meeting_mode: meetingMode,
+        meeting_email: effectiveMeetingEmail,
       });
 
       setSubmitted(true);
@@ -738,6 +765,153 @@ export default function ContactClient() {
                         </div>
                       </div>
 
+                      {/* Meeting / Consultation Scheduling Section */}
+                      <div className="p-5 sm:p-6 rounded-2xl bg-white dark:bg-[#102420] border border-[#1a3a35]/15 dark:border-white/10 mb-8 shadow-sm">
+                        <div className="flex items-center gap-3 mb-2">
+                          <div className="w-9 h-9 rounded-xl bg-[#d4edea] dark:bg-[#1a3a35] text-[#2a8a85] dark:text-[#5fd4ce] flex items-center justify-center shrink-0">
+                            <Calendar className="w-5 h-5" />
+                          </div>
+                          <div>
+                            <h3 className="text-base font-extrabold text-[#1a3a35] dark:text-white">
+                              Schedule Discovery Meeting (Optional)
+                            </h3>
+                            <p className="text-xs text-[#42645f] dark:text-[#94a3b8]">
+                              Select your preferred date, time, and channel for an introductory discussion.
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-5">
+                          {/* Calendar Date */}
+                          <div>
+                            <label className="block text-xs font-bold text-[#1a3a35] dark:text-white mb-2">
+                              Preferred Date
+                            </label>
+                            <input
+                              type="date"
+                              min={new Date().toISOString().split('T')[0]}
+                              value={meetingDate}
+                              onChange={(e) => setMeetingDate(e.target.value)}
+                              className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-[#0c1b18] border border-[#1a3a35]/15 dark:border-white/10 text-[#1a3a35] dark:text-white focus:outline-none focus:border-[#2a8a85] dark:focus:border-[#5fd4ce] text-sm transition-colors cursor-pointer"
+                            />
+                          </div>
+
+                          {/* Meeting Time */}
+                          <div>
+                            <label className="block text-xs font-bold text-[#1a3a35] dark:text-white mb-2">
+                              Preferred Time (EAT)
+                            </label>
+                            <select
+                              value={meetingTime}
+                              onChange={(e) => setMeetingTime(e.target.value)}
+                              className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-[#0c1b18] border border-[#1a3a35]/15 dark:border-white/10 text-[#1a3a35] dark:text-white focus:outline-none focus:border-[#2a8a85] dark:focus:border-[#5fd4ce] text-sm transition-colors cursor-pointer"
+                            >
+                              <option value="09:00 AM (EAT)">09:00 AM (EAT)</option>
+                              <option value="10:00 AM (EAT)">10:00 AM (EAT)</option>
+                              <option value="11:30 AM (EAT)">11:30 AM (EAT)</option>
+                              <option value="02:00 PM (EAT)">02:00 PM (EAT)</option>
+                              <option value="03:30 PM (EAT)">03:30 PM (EAT)</option>
+                              <option value="05:00 PM (EAT)">05:00 PM (EAT)</option>
+                            </select>
+                          </div>
+
+                          {/* Mode of Meeting */}
+                          <div className="sm:col-span-2">
+                            <label className="block text-xs font-bold text-[#1a3a35] dark:text-white mb-2">
+                              Mode of Meeting
+                            </label>
+                            <select
+                              value={meetingMode}
+                              onChange={(e) => setMeetingMode(e.target.value)}
+                              className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-[#0c1b18] border border-[#1a3a35]/15 dark:border-white/10 text-[#1a3a35] dark:text-white focus:outline-none focus:border-[#2a8a85] dark:focus:border-[#5fd4ce] text-sm transition-colors cursor-pointer"
+                            >
+                              <option value="Google Meet">Google Meet (Online Video Call)</option>
+                              <option value="WhatsApp">WhatsApp (Call / Video)</option>
+                              <option value="Phone Call">Direct Phone Call</option>
+                              <option value="In-Person (Dar es Salaam)">In-Person (Dar es Salaam, Tanzania)</option>
+                            </select>
+                          </div>
+
+                          {/* Dynamic Google Meet Email Choice */}
+                          {meetingMode === 'Google Meet' && (
+                            <div className="sm:col-span-2 p-4 rounded-xl bg-[#d4edea]/40 dark:bg-[#1a3a35]/30 border border-[#2a8a85]/20 dark:border-[#5fd4ce]/20 space-y-3">
+                              <div className="flex items-center gap-2">
+                                <Video className="w-4 h-4 text-[#2a8a85] dark:text-[#5fd4ce]" />
+                                <span className="text-xs font-bold text-[#1a3a35] dark:text-white">
+                                  Google Meet Invitation Email
+                                </span>
+                              </div>
+
+                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                                <label className="flex items-center gap-2.5 p-3 rounded-lg border border-[#1a3a35]/10 dark:border-white/10 bg-white dark:bg-[#102420] cursor-pointer hover:border-[#2a8a85] dark:hover:border-[#5fd4ce] transition-colors">
+                                  <input
+                                    type="radio"
+                                    name="googleMeetEmailChoice"
+                                    value="same"
+                                    checked={googleMeetEmailChoice === 'same'}
+                                    onChange={() => setGoogleMeetEmailChoice('same')}
+                                    className="text-[#2a8a85] focus:ring-[#2a8a85]"
+                                  />
+                                  <span className="text-[#1a3a35] dark:text-white font-medium">
+                                    Same as work email ({workEmail || 'entered above'})
+                                  </span>
+                                </label>
+
+                                <label className="flex items-center gap-2.5 p-3 rounded-lg border border-[#1a3a35]/10 dark:border-white/10 bg-white dark:bg-[#102420] cursor-pointer hover:border-[#2a8a85] dark:hover:border-[#5fd4ce] transition-colors">
+                                  <input
+                                    type="radio"
+                                    name="googleMeetEmailChoice"
+                                    value="different"
+                                    checked={googleMeetEmailChoice === 'different'}
+                                    onChange={() => setGoogleMeetEmailChoice('different')}
+                                    className="text-[#2a8a85] focus:ring-[#2a8a85]"
+                                  />
+                                  <span className="text-[#1a3a35] dark:text-white font-medium">
+                                    Use another email address
+                                  </span>
+                                </label>
+                              </div>
+
+                              {googleMeetEmailChoice === 'different' && (
+                                <div className="pt-1">
+                                  <label className="block text-xs font-bold text-[#1a3a35] dark:text-white mb-1.5">
+                                    Meeting Email Address *
+                                  </label>
+                                  <input
+                                    type="email"
+                                    required
+                                    value={differentMeetingEmail}
+                                    onChange={(e) => setDifferentMeetingEmail(e.target.value)}
+                                    placeholder="your-google-account@gmail.com"
+                                    className="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-[#102420] border border-[#1a3a35]/20 dark:border-white/15 text-[#1a3a35] dark:text-white placeholder-slate-400 focus:outline-none focus:border-[#2a8a85] dark:focus:border-[#5fd4ce] text-sm"
+                                  />
+                                </div>
+                              )}
+                            </div>
+                          )}
+
+                          {/* Dynamic WhatsApp Info Callout */}
+                          {meetingMode === 'WhatsApp' && (
+                            <div className="sm:col-span-2 p-3.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-500/20 text-xs text-emerald-900 dark:text-emerald-200 flex items-center gap-2.5">
+                              <MessageCircle className="w-4 h-4 shrink-0 text-emerald-600 dark:text-emerald-400" />
+                              <span>
+                                Default WhatsApp number will be used: <strong className="font-bold">{whatsappNumber || 'Phone number provided above'}</strong>.
+                              </span>
+                            </div>
+                          )}
+
+                          {/* Dynamic In-Person Info Callout */}
+                          {meetingMode === 'In-Person (Dar es Salaam)' && (
+                            <div className="sm:col-span-2 p-3.5 rounded-xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-xs text-[#42645f] dark:text-[#94a3b8] flex items-center gap-2.5">
+                              <MapPin className="w-4 h-4 shrink-0 text-[#2a8a85] dark:text-[#5fd4ce]" />
+                              <span>
+                                Meeting will be scheduled at our Dar es Salaam office or an agreed on-site business location.
+                              </span>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+
                       {/* Review Before Submitting Summary Box */}
                       <div className="p-5 rounded-2xl bg-[#d4edea]/30 dark:bg-[#193d36]/40 border border-[#2a8a85]/30 dark:border-[#5fd4ce]/20 mb-8">
                         <h3 className="text-xs font-bold uppercase tracking-wider text-[#2a8a85] dark:text-[#5fd4ce] mb-3">
@@ -759,6 +933,17 @@ export default function ContactClient() {
                           <div>
                             <span className="text-[#42645f] dark:text-[#94a3b8] block mb-0.5">Budget status:</span>
                             <span className="font-bold text-[#1a3a35] dark:text-white">{budgetApproved}</span>
+                          </div>
+                          <div className="sm:col-span-2 pt-2 border-t border-[#2a8a85]/15 dark:border-white/10">
+                            <span className="text-[#42645f] dark:text-[#94a3b8] block mb-0.5">Discovery Meeting:</span>
+                            <span className="font-bold text-[#1a3a35] dark:text-white">
+                              {meetingDate ? `${meetingDate} (${meetingTime})` : 'Flexible / Follow-up'} &bull; {meetingMode}
+                              {meetingMode === 'Google Meet' && (
+                                <span className="block text-xs font-normal text-[#42645f] dark:text-[#94a3b8] mt-0.5">
+                                  Invite to: {googleMeetEmailChoice === 'different' ? (differentMeetingEmail || 'Not specified yet') : (workEmail || 'Work email')}
+                                </span>
+                              )}
+                            </span>
                           </div>
                         </div>
                       </div>
@@ -799,7 +984,14 @@ export default function ContactClient() {
 
                       <button
                         type="submit"
-                        disabled={!fullName || !workEmail || !whatsappNumber || !agreedToTerms || isSubmitting}
+                        disabled={
+                          !fullName ||
+                          !workEmail ||
+                          !whatsappNumber ||
+                          !agreedToTerms ||
+                          isSubmitting ||
+                          (meetingMode === 'Google Meet' && googleMeetEmailChoice === 'different' && !differentMeetingEmail)
+                        }
                         className="inline-flex items-center gap-2 px-10 py-4 rounded-full bg-[#2a8a85] hover:bg-[#237571] dark:bg-[#5fd4ce] dark:hover:bg-[#4ec2bc] text-white dark:text-[#0c1614] font-bold text-base shadow-xl transition-all hover:-translate-y-0.5 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                       >
                         {isSubmitting ? (

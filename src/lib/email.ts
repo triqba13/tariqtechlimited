@@ -54,9 +54,14 @@ export function buildUserConfirmationHtml(inquiry: ContactInquiry): string {
           <p style="margin: 0 0 16px;">
             Thank you for reaching out. We have received your inquiry and <strong>will get back to you shortly</strong>.
           </p>
-          <p style="margin: 0 0 28px;">
+          <p style="margin: 0 0 20px;">
             We are excited to explore how we can help you with your digital and technology needs.
           </p>
+          ${inquiry.meeting_date ? `
+          <div style="margin: 0 0 24px; padding: 14px 18px; background-color: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 12px; font-size: 13.5px; color: #166534;">
+            📅 <strong>Discovery Meeting:</strong> We noted your preferred schedule on <strong>${inquiry.meeting_date}</strong> (${inquiry.meeting_time || 'Business hours'}) via <strong>${inquiry.meeting_mode || 'Google Meet'}</strong>. Our engineering team will confirm and send the meeting link to your email shortly.
+          </div>
+          ` : ''}
           <p style="margin: 0 0 4px; color: #4b5563;">
             Best regards,
           </p>
@@ -220,6 +225,10 @@ function buildAdminNotificationHtml(inquiry: ContactInquiry): string {
         <tr>
           <td><strong>Project Description:</strong></td>
           <td>${inquiry.project_description || 'N/A'}</td>
+        </tr>
+        <tr style="background-color: #dcfce7;">
+          <td><strong>📅 Meeting Request:</strong></td>
+          <td><strong>${inquiry.meeting_date ? `${inquiry.meeting_date} (${inquiry.meeting_time || 'Flexible'}) via ${inquiry.meeting_mode} [Invite Target: ${inquiry.meeting_email || inquiry.work_email}]` : 'None specified'}</strong></td>
         </tr>
       </table>
 
