@@ -63,11 +63,11 @@ export default function ClientsFeedbackSection() {
           className="pointer-events-none absolute inset-y-0 right-0 w-16 sm:w-32 bg-gradient-to-l from-[#dfeff2] dark:from-[#0A0D14] to-transparent z-20"
         />
 
-        <div className="marquee-track-ltr gap-6 py-4 px-2">
+        <div className="marquee-track-ltr gap-4 sm:gap-6 py-4 px-2">
           {marqueeItems.map((item, idx) => (
             <div
               key={`${item.id}-${idx}`}
-              className="w-[320px] sm:w-[380px] shrink-0 bg-white dark:bg-[#0F1721] rounded-3xl p-6 sm:p-7 border border-[#1a3a35]/10 dark:border-white/10 shadow-sm hover:shadow-2xl hover:border-[#2a8a85]/50 transition-all duration-300 flex flex-col justify-between select-none cursor-default group"
+              className="w-[285px] sm:w-[380px] shrink-0 bg-white dark:bg-[#0F1721] rounded-2xl sm:rounded-3xl p-5 sm:p-7 border border-[#1a3a35]/10 dark:border-white/10 shadow-sm hover:shadow-2xl hover:border-[#2a8a85]/50 transition-all duration-300 flex flex-col justify-between select-none cursor-default group"
             >
               <div>
                 {/* 5 Golden Stars */}

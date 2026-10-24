@@ -83,52 +83,53 @@ export default function OurWorkSection() {
           </p>
         </div>
 
-        {/* 2 Featured Project Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-[840px] mx-auto">
+        {/* 2 Featured Project Cards: Balanced medium height on mobile */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 max-w-[840px] mx-auto">
           {featuredProjects.map((project) => (
             <Link
               key={project.id}
               href={`/projects/${project.id}`}
-              className="group relative h-[330px] sm:h-[360px] rounded-3xl overflow-hidden border border-[#1a3a35]/15 dark:border-white/10 shadow-sm transition-all duration-300 hover:shadow-2xl hover:-translate-y-1.5 block cursor-pointer"
+              className="group relative h-[220px] sm:h-[320px] md:h-[360px] rounded-2xl sm:rounded-3xl overflow-hidden border border-[#1a3a35]/15 dark:border-white/10 shadow-sm transition-all duration-300 hover:shadow-2xl hover:-translate-y-1.5 block cursor-pointer"
             >
               {/* Background Image */}
               <Image
                 src={project.image}
                 alt={project.title}
                 fill
-                sizes="(max-width: 768px) 100vw, 50vw"
+                loading="lazy"
+                sizes="(max-width: 640px) 92vw, (max-width: 1024px) 50vw, 420px"
                 className="object-cover object-center transition-all duration-700 ease-out group-hover:scale-105 group-hover:brightness-105"
               />
 
               {/* Ambient Vignette Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-transparent group-hover:from-black/80 transition-colors duration-300" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent group-hover:from-black/85 transition-colors duration-300" />
 
               {/* Category Pill Top Left */}
-              <div className="absolute top-4 left-4 z-10">
-                <span className="text-[11px] font-extrabold uppercase px-3 py-1 rounded-full tracking-wider bg-black/50 backdrop-blur-md text-white border border-white/20">
+              <div className="absolute top-3 left-3 sm:top-4 sm:left-4 z-10">
+                <span className="text-[10px] sm:text-[11px] font-extrabold uppercase px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full tracking-wider bg-black/60 sm:backdrop-blur-md text-white border border-white/20">
                   {project.category}
                 </span>
               </div>
 
               {/* Frosted Glass Overlay Card at Bottom */}
-              <div className="absolute inset-x-4 bottom-4 rounded-2xl bg-black/55 dark:bg-black/70 backdrop-blur-md border border-white/20 p-5 transition-all duration-300 ease-out shadow-2xl flex flex-col justify-end">
+              <div className="absolute inset-x-2.5 bottom-2.5 sm:inset-x-4 sm:bottom-4 rounded-xl sm:rounded-2xl bg-black/60 dark:bg-black/75 sm:backdrop-blur-md border border-white/20 p-3 sm:p-5 transition-all duration-300 ease-out shadow-2xl flex flex-col justify-end">
                 
                 {/* Title */}
-                <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight leading-snug drop-shadow-sm">
+                <h3 className="text-lg sm:text-2xl font-bold text-white tracking-tight leading-snug drop-shadow-sm">
                   {project.title}
                 </h3>
 
                 {/* Expandable Description on Hover */}
                 <div className="grid grid-rows-[0fr] group-hover:grid-rows-[1fr] transition-all duration-300 ease-out">
                   <div className="overflow-hidden">
-                    <p className="text-xs sm:text-sm text-slate-100/90 leading-relaxed pt-2.5 drop-shadow-sm">
+                    <p className="text-xs sm:text-sm text-slate-100/90 leading-relaxed pt-2 sm:pt-2.5 drop-shadow-sm">
                       {project.desc}
                     </p>
-                    <div className="flex flex-wrap gap-1.5 pt-3">
+                    <div className="flex flex-wrap gap-1 sm:gap-1.5 pt-2 sm:pt-3">
                       {project.tags.map((tag, tIdx) => (
                         <span
                           key={tIdx}
-                          className="text-[11px] font-semibold bg-white/15 text-white px-2.5 py-0.5 rounded-md"
+                          className="text-[10px] sm:text-[11px] font-semibold bg-white/15 text-white px-2 sm:px-2.5 py-0.5 rounded-md"
                         >
                           {tag}
                         </span>
@@ -138,7 +139,7 @@ export default function OurWorkSection() {
                 </div>
 
                 {/* Explore more label and arrow */}
-                <div className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-[#e8b54b] group-hover:text-white transition-colors mt-3">
+                <div className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-[#e8b54b] group-hover:text-white transition-colors mt-2 sm:mt-3">
                   <span>Explore more</span>
                   <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
                 </div>

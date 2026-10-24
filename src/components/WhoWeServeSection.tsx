@@ -47,39 +47,40 @@ export default function WhoWeServeSection() {
           </p>
         </div>
 
-        {/* 4 Interactive Persona Cards in the Same Line: Wider aspect ratio, reduced height for optimal photo framing */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-5">
+        {/* 4 Interactive Persona Cards: Balanced medium height on mobile, full height on desktop */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4 lg:gap-5">
           {personas.map((persona) => {
             return (
               <Link
                 key={persona.id}
                 href="/contact"
-                className="group relative h-[330px] sm:h-[350px] lg:h-[360px] rounded-3xl overflow-hidden border border-[#1a3a35]/15 dark:border-white/10 shadow-sm transition-all duration-300 hover:shadow-2xl hover:-translate-y-1.5 block cursor-pointer"
+                className="group relative h-[210px] sm:h-[320px] lg:h-[360px] rounded-2xl sm:rounded-3xl overflow-hidden border border-[#1a3a35]/15 dark:border-white/10 shadow-sm transition-all duration-300 hover:shadow-2xl hover:-translate-y-1.5 block cursor-pointer"
               >
                 {/* Background Image: Full View, Sharp & Vibrant with Smooth Hover Zoom */}
                 <Image
                   src={persona.image}
                   alt={persona.title}
                   fill
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                  loading="lazy"
+                  sizes="(max-width: 640px) 92vw, (max-width: 1024px) 50vw, 25vw"
                   className="object-cover object-center transition-all duration-700 ease-out group-hover:scale-105 group-hover:brightness-105"
                 />
 
                 {/* Gentle Ambient Vignette to keep image clearly visible */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent group-hover:from-black/70 transition-colors duration-300" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/20 to-transparent group-hover:from-black/75 transition-colors duration-300" />
 
                 {/* Translucent Frosted Glass Card: Preserves image visibility beneath while expanding on hover */}
-                <div className="absolute inset-x-3 bottom-3 rounded-2xl bg-black/50 dark:bg-black/65 backdrop-blur-md border border-white/20 p-3.5 sm:p-4 transition-all duration-300 ease-out shadow-xl flex flex-col justify-end">
+                <div className="absolute inset-x-2.5 bottom-2.5 sm:inset-x-3 sm:bottom-3 rounded-xl sm:rounded-2xl bg-black/60 dark:bg-black/70 sm:backdrop-blur-md border border-white/20 p-2.5 sm:p-4 transition-all duration-300 ease-out shadow-xl flex flex-col justify-end">
                   
                   {/* Title */}
-                  <h3 className="text-sm sm:text-base font-bold text-white tracking-tight leading-snug drop-shadow-sm">
+                  <h3 className="text-xs sm:text-base font-bold text-white tracking-tight leading-snug drop-shadow-sm">
                     {persona.title}
                   </h3>
 
                   {/* Expandable Description (Smooth Grid Transition without Explore more) */}
                   <div className="grid grid-rows-[0fr] group-hover:grid-rows-[1fr] transition-all duration-300 ease-out">
                     <div className="overflow-hidden">
-                      <p className="text-xs sm:text-[13px] text-slate-100/95 leading-relaxed pt-2 drop-shadow-sm">
+                      <p className="text-[11px] sm:text-[13px] text-slate-100/95 leading-relaxed pt-1.5 sm:pt-2 drop-shadow-sm">
                         {persona.desc}
                       </p>
                     </div>

@@ -80,7 +80,7 @@ export default function ServicesSection() {
               <div className="hidden md:block absolute left-6 lg:left-8 top-3 bottom-6 w-1 bg-gradient-to-b from-[#2a8a85] via-[#289b83] to-[#e8b54b] rounded-full opacity-60 shadow-[0_0_15px_rgba(42,138,133,0.5)]" />
 
               {/* Connected Service Branches */}
-              <div className="space-y-5 md:space-y-6 md:pl-16 lg:pl-20">
+              <div className="space-y-3.5 sm:space-y-6 md:pl-16 lg:pl-20">
                 {services.map((item, index) => {
                   const Icon = item.icon;
                   const isActive = activeBranch === index;
@@ -122,7 +122,7 @@ export default function ServicesSection() {
                       {/* Clean Service Card (Matching the user's minimalist reference screenshot) */}
                       <Link
                         href="/contact"
-                        className={`block relative rounded-2xl p-6 sm:p-7 transition-all duration-300 border shadow-sm ${
+                        className={`block relative rounded-xl sm:rounded-2xl p-4 sm:p-7 transition-all duration-300 border shadow-sm ${
                           isActive
                             ? 'bg-white dark:bg-[#141f2e] border-[#2a8a85] dark:border-[#289b83] shadow-lg -translate-y-0.5'
                             : 'bg-white/85 dark:bg-[#0F1721] border-[#1a3a35]/15 dark:border-white/10 hover:border-[#2a8a85]/50'
