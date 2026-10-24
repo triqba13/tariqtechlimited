@@ -37,7 +37,7 @@ export interface ContactInquiry {
 
 /**
  * Saves a contact/project inquiry securely to Supabase.
- * Uses API endpoint with fallback to direct Supabase insert, plus localStorage backup.
+ * Strictly avoids storing Personally Identifiable Information (PII) in browser localStorage.
  */
 export async function saveContactInquiry(inquiry: Omit<ContactInquiry, 'id' | 'created_at' | 'status'>) {
   const generatedId = crypto.randomUUID();
@@ -48,13 +48,13 @@ export async function saveContactInquiry(inquiry: Omit<ContactInquiry, 'id' | 'c
     status: 'new',
   };
 
-  // Keep a local copy in browser as backup
+  // Also clean up any legacy cached inquiries in localStorage from previous versions for user privacy
   try {
-    const existing = JSON.parse(localStorage.getItem('tariqtech_inquiries') || '[]');
-    existing.unshift(payload);
-    localStorage.setItem('tariqtech_inquiries', JSON.stringify(existing));
-  } catch (err) {
-    console.warn('Local storage inquiry warning:', err);
+    if (typeof window !== 'undefined' && window.localStorage) {
+      window.localStorage.removeItem('tariqtech_inquiries');
+    }
+  } catch {
+    // Ignore storage cleanup issues
   }
 
   // 1. Primary path: Call the secure server-side API route
@@ -86,5 +86,5 @@ export async function saveContactInquiry(inquiry: Omit<ContactInquiry, 'id' | 'c
     return { success: true, referenceId: generatedId, method: 'supabase' };
   }
 
-  return { success: true, referenceId: generatedId, method: 'local_storage' };
+  throw new Error('Service temporarily unavailable. Please try again or reach out on WhatsApp.');
 }

@@ -237,8 +237,7 @@ export default function ContactClient() {
       setShowToast(true);
     } catch (err: unknown) {
       console.error('Contact inquiry save error:', err);
-      // Even if network fails, saveContactInquiry has cached to localStorage
-      setSubmitError('Unable to sync online right now. Your details have been saved locally, or you can contact us directly on WhatsApp.');
+      setSubmitError('Unable to submit inquiry right now. Please check your connection or reach out to us directly via WhatsApp.');
     } finally {
       setIsSubmitting(false);
     }
