@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { supabase, isSupabaseConfigured, ContactInquiry } from '@/lib/supabase';
 import { sendInquiryEmails } from '@/lib/email';
+import { dispatchToN8nWebhook } from '@/lib/n8n';
 
 // Email validation helper
 function isValidEmail(email: string): boolean {
@@ -98,18 +99,26 @@ export async function POST(request: Request) {
         );
       }
 
-      // Send client confirmation and admin alert emails
-      await sendInquiryEmails(inquiryRecord);
+      // Trigger n8n Automation Engine (AI Personalization, Client Email, Team Alert, WhatsApp Alert)
+      const n8nDispatched = await dispatchToN8nWebhook(inquiryRecord);
+
+      // If n8n was not dispatched or unconfigured, fallback to standard Resend email
+      if (!n8nDispatched) {
+        await sendInquiryEmails(inquiryRecord);
+      }
 
       return NextResponse.json({
         success: true,
         referenceId: inquiryId,
-        message: 'Inquiry safely recorded in Supabase.',
+        message: 'Inquiry safely recorded in Supabase and automation dispatched.',
       });
     }
 
     // Local / development fallback
-    await sendInquiryEmails(inquiryRecord);
+    const localDispatched = await dispatchToN8nWebhook(inquiryRecord);
+    if (!localDispatched) {
+      await sendInquiryEmails(inquiryRecord);
+    }
 
     return NextResponse.json({
       success: true,
