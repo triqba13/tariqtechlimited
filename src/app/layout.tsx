@@ -6,6 +6,7 @@ import { ThemeProvider } from '@/context/ThemeContext';
 import GoogleTranslateScript from '@/components/GoogleTranslateScript';
 import FloatingWidgets from '@/components/FloatingWidgets';
 import CookieConsent from '@/components/CookieConsent';
+import ElevenLabsWidget from '@/components/ElevenLabsWidget';
 
 const plusJakarta = Plus_Jakarta_Sans({
   subsets: ['latin'],
@@ -190,6 +191,7 @@ export default function RootLayout({
           <LanguageProvider>
             {children}
             <FloatingWidgets />
+            <ElevenLabsWidget />
             <CookieConsent />
             <GoogleTranslateScript />
           </LanguageProvider>
