@@ -30,12 +30,12 @@ export default function HeroSection() {
         <div className="absolute bottom-0 right-[-15%] sm:right-[-5%] md:right-[5%] lg:right-[12%] xl:right-[16%] h-full flex items-center justify-center pointer-events-none z-10 opacity-35 sm:opacity-50 md:opacity-80 lg:opacity-100 transition-opacity duration-500">
           <div className="relative h-[85%] sm:h-[90%] lg:h-full aspect-[2756/4134] flex items-center justify-center">
             <Image
-              src="/image1-transparent.png"
+              src="/image1-transparent.webp"
               alt="TariqTech Innovation Lightbulb"
               fill
               priority
               fetchPriority="high"
-              sizes="(max-width: 640px) 60vw, (max-width: 1024px) 50vw, 40vw"
+              sizes="(max-width: 640px) 50vw, (max-width: 1024px) 50vw, 40vw"
               className="object-contain drop-shadow-sm md:drop-shadow-[0_0_50px_rgba(245,158,11,0.25)]"
             />
           </div>

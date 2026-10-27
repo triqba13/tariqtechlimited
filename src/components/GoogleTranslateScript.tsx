@@ -14,41 +14,22 @@ export default function GoogleTranslateScript() {
   const [shouldLoad, setShouldLoad] = useState(false);
 
   useEffect(() => {
-    // Only load Google Translate script when idle or upon user interaction
-    const triggerLoad = () => {
+    // Only load if the visitor has a non-English language saved or requests a language change
+    const saved = typeof window !== 'undefined' ? localStorage.getItem('tariqtech_lang') : null;
+    if (saved && saved !== 'en') {
       setShouldLoad(true);
-      window.removeEventListener('scroll', triggerLoad);
-      window.removeEventListener('touchstart', triggerLoad);
-      window.removeEventListener('click', triggerLoad);
+      return;
+    }
+
+    const onTrigger = () => {
+      setShouldLoad(true);
+      window.removeEventListener('tariqtech_need_translate', onTrigger);
     };
 
-    window.addEventListener('scroll', triggerLoad, { passive: true, once: true });
-    window.addEventListener('touchstart', triggerLoad, { passive: true, once: true });
-    window.addEventListener('click', triggerLoad, { passive: true, once: true });
-
-    let timer: NodeJS.Timeout;
-    if ('requestIdleCallback' in window) {
-      const id = (window as unknown as { requestIdleCallback: (cb: () => void, opts: { timeout: number }) => number }).requestIdleCallback(
-        () => triggerLoad(),
-        { timeout: 3500 }
-      );
-      return () => {
-        if ('cancelIdleCallback' in window) {
-          (window as unknown as { cancelIdleCallback: (id: number) => void }).cancelIdleCallback(id);
-        }
-        window.removeEventListener('scroll', triggerLoad);
-        window.removeEventListener('touchstart', triggerLoad);
-        window.removeEventListener('click', triggerLoad);
-      };
-    } else {
-      timer = setTimeout(triggerLoad, 3000);
-      return () => {
-        clearTimeout(timer);
-        window.removeEventListener('scroll', triggerLoad);
-        window.removeEventListener('touchstart', triggerLoad);
-        window.removeEventListener('click', triggerLoad);
-      };
-    }
+    window.addEventListener('tariqtech_need_translate', onTrigger);
+    return () => {
+      window.removeEventListener('tariqtech_need_translate', onTrigger);
+    };
   }, []);
 
   useEffect(() => {

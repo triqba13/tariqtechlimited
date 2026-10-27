@@ -94,6 +94,9 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     setLanguageState(lang);
     if (typeof window !== 'undefined') {
       localStorage.setItem('tariqtech_lang', lang);
+      if (lang !== 'en') {
+        window.dispatchEvent(new CustomEvent('tariqtech_need_translate'));
+      }
       triggerGoogleTranslate(lang);
     }
   };

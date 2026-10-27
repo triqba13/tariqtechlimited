@@ -100,7 +100,12 @@ export default function FloatingWidgets() {
           {/* Trigger Button - Matches reference screenshot exactly */}
           <button
             type="button"
-            onClick={() => setIsOpen((prev) => !prev)}
+            onClick={() => {
+              if (typeof window !== 'undefined') {
+                window.dispatchEvent(new CustomEvent('tariqtech_need_translate'));
+              }
+              setIsOpen((prev) => !prev);
+            }}
             className="flex items-center gap-2 px-2.5 py-1.5 bg-white dark:bg-[#0F1721] hover:bg-[#f6fbfa] dark:hover:bg-[#151f2e] text-[#1a3a35] dark:text-white border border-[#1a3a35]/15 dark:border-white/15 rounded-md shadow-md hover:shadow-lg transition-all focus:outline-none"
             aria-label="Select language"
             aria-expanded={isOpen}
