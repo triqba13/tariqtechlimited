@@ -34,8 +34,9 @@ export default function HeroSection() {
               alt="TariqTech Innovation Lightbulb"
               fill
               priority
-              sizes="(max-width: 640px) 70vw, (max-width: 1024px) 50vw, 40vw"
-              className="object-contain drop-shadow-[0_0_50px_rgba(245,158,11,0.25)]"
+              fetchPriority="high"
+              sizes="(max-width: 640px) 60vw, (max-width: 1024px) 50vw, 40vw"
+              className="object-contain drop-shadow-sm md:drop-shadow-[0_0_50px_rgba(245,158,11,0.25)]"
             />
           </div>
         </div>

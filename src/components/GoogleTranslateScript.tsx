@@ -1,6 +1,7 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import Script from 'next/script';
 
 declare global {
   interface Window {
@@ -10,7 +11,49 @@ declare global {
 }
 
 export default function GoogleTranslateScript() {
+  const [shouldLoad, setShouldLoad] = useState(false);
+
   useEffect(() => {
+    // Only load Google Translate script when idle or upon user interaction
+    const triggerLoad = () => {
+      setShouldLoad(true);
+      window.removeEventListener('scroll', triggerLoad);
+      window.removeEventListener('touchstart', triggerLoad);
+      window.removeEventListener('click', triggerLoad);
+    };
+
+    window.addEventListener('scroll', triggerLoad, { passive: true, once: true });
+    window.addEventListener('touchstart', triggerLoad, { passive: true, once: true });
+    window.addEventListener('click', triggerLoad, { passive: true, once: true });
+
+    let timer: NodeJS.Timeout;
+    if ('requestIdleCallback' in window) {
+      const id = (window as unknown as { requestIdleCallback: (cb: () => void, opts: { timeout: number }) => number }).requestIdleCallback(
+        () => triggerLoad(),
+        { timeout: 3500 }
+      );
+      return () => {
+        if ('cancelIdleCallback' in window) {
+          (window as unknown as { cancelIdleCallback: (id: number) => void }).cancelIdleCallback(id);
+        }
+        window.removeEventListener('scroll', triggerLoad);
+        window.removeEventListener('touchstart', triggerLoad);
+        window.removeEventListener('click', triggerLoad);
+      };
+    } else {
+      timer = setTimeout(triggerLoad, 3000);
+      return () => {
+        clearTimeout(timer);
+        window.removeEventListener('scroll', triggerLoad);
+        window.removeEventListener('touchstart', triggerLoad);
+        window.removeEventListener('click', triggerLoad);
+      };
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!shouldLoad) return;
+
     window.googleTranslateElementInit = () => {
       if (window.google && window.google.translate) {
         new window.google.translate.TranslateElement(
@@ -23,14 +66,6 @@ export default function GoogleTranslateScript() {
         );
       }
     };
-
-    if (!document.getElementById('google-translate-script')) {
-      const script = document.createElement('script');
-      script.id = 'google-translate-script';
-      script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
-      script.async = true;
-      document.body.appendChild(script);
-    }
 
     // Observer to strictly suppress Google Translate top banner frame and body top displacement
     const suppressBanner = () => {
@@ -69,30 +104,36 @@ export default function GoogleTranslateScript() {
       childList: true,
     });
 
-    const interval = setInterval(suppressBanner, 300);
-
     return () => {
       observer.disconnect();
-      clearInterval(interval);
     };
-  }, []);
+  }, [shouldLoad]);
 
   return (
-    <div
-      id="google_translate_element"
-      style={{
-        position: 'absolute',
-        width: '1px',
-        height: '1px',
-        top: '-9999px',
-        left: '-9999px',
-        overflow: 'hidden',
-        opacity: 0,
-        pointerEvents: 'none',
-      }}
-      tabIndex={-1}
-      // @ts-ignore inert is supported in React 19 / HTML5
-      inert={true}
-    />
+    <>
+      <div
+        id="google_translate_element"
+        style={{
+          position: 'absolute',
+          width: '1px',
+          height: '1px',
+          top: '-9999px',
+          left: '-9999px',
+          overflow: 'hidden',
+          opacity: 0,
+          pointerEvents: 'none',
+        }}
+        tabIndex={-1}
+        // @ts-ignore inert is supported in React 19 / HTML5
+        inert={true}
+      />
+      {shouldLoad && (
+        <Script
+          id="google-translate-script"
+          src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
+          strategy="lazyOnload"
+        />
+      )}
+    </>
   );
 }

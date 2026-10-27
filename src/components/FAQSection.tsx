@@ -55,7 +55,7 @@ export default function FAQSection() {
               fill
               sizes="(max-width: 1024px) 100vw, 40vw"
               className="object-cover object-center"
-              priority
+              loading="lazy"
             />
 
             {/* Dark Vignette Overlay for Crisp Readability */}
