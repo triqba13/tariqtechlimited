@@ -29,7 +29,10 @@ export const metadata: Metadata = {
     canonical: '/',
   },
   verification: {
-    google: '-W3C6WpDow33OiQZuAiN9vjJXaWTSGq9xv9FHH1f1hQ',
+    google: [
+      '-W3C6WpDow33OiQZuAiN9vjJXaWTSGq9xv9FHH1f1hQ',
+      'vtyE7HlvTMX0zsn-Co8EfkSDo2zVfJO0UxljaDcHRAE',
+    ],
   },
   keywords: [
     'TariqTech Limited',
