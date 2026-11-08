@@ -220,11 +220,11 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
 
                   <div className="space-y-2 pt-2">
                     <a
-                      href="tel:+255744588248"
+                      href="tel:+255667736836"
                       className="flex items-center gap-2.5 w-full px-4 py-2.5 rounded-full bg-white/10 hover:bg-white/20 transition-all text-xs font-bold text-white"
                     >
                       <Phone className="w-3.5 h-3.5 text-[#5fd4ce]" />
-                      <span>+255 744 588 248</span>
+                      <span>+255 667 736 836</span>
                     </a>
 
                     <a

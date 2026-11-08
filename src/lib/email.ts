@@ -126,8 +126,8 @@ export function buildUserConfirmationHtml(inquiry: ContactInquiry): string {
             <!-- Clickable Phone Number -->
             <tr>
               <td style="font-size: 13.5px; padding-bottom: 14px;">
-                <a href="tel:+255744588248" style="color: #0284c7; text-decoration: underline; font-weight: 600;">
-                  +255744588248
+                <a href="tel:+255667736836" style="color: #0284c7; text-decoration: underline; font-weight: 600;">
+                  +255667736836
                 </a>
               </td>
             </tr>

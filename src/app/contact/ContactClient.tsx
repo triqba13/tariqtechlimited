@@ -1048,7 +1048,7 @@ export default function ContactClient() {
 
               {/* Card 2: Phone / WhatsApp */}
               <a
-                href="https://wa.me/255744588248"
+                href="https://wa.me/255667736836"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-6 rounded-3xl bg-white/80 dark:bg-[#102420]/80 backdrop-blur-md border border-[#1a3a35]/15 dark:border-white/10 hover:border-[#2a8a85] dark:hover:border-[#5fd4ce] shadow-sm hover:shadow-md transition-all group"

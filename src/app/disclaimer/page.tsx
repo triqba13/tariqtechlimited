@@ -179,7 +179,7 @@ export default function DisclaimerPage() {
                 </div>
                 <div className="flex items-center gap-2.5 text-[#d4edea]">
                   <Phone className="w-4 h-4 text-[#5fd4ce] shrink-0" />
-                  <a href="tel:+255744588248" className="hover:text-white">+255 744 588 248</a>
+                  <a href="tel:+255667736836" className="hover:text-white">+255 667 736 836</a>
                 </div>
                 <div className="flex items-center gap-2.5 text-[#d4edea]">
                   <MapPin className="w-4 h-4 text-[#5fd4ce] shrink-0" />
